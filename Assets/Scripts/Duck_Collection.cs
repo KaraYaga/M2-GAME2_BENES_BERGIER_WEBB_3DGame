@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Duck_Collection : MonoBehaviour
 {
+    public static Duck_Collection instance;
     [Header("Duck Collection")]
     [SerializeField] private int maxDucks = 15;
     [SerializeField] private int currentDucks;
@@ -20,6 +21,7 @@ public class Duck_Collection : MonoBehaviour
 // Start with NO DUCKS
     void Start()
     {
+        instance = this;
         currentDucks = 0;
 
         if (duckCountText == null)
@@ -30,6 +32,25 @@ public class Duck_Collection : MonoBehaviour
         {
             UpdateDuckCountText();
         }
+    }
+    
+// Detecting when ducks are in range
+    public void CollectDuckInRange()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, collectionRange);
+        Debug.Log("Duck detection started!");
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("Duck"))
+            {
+                Debug.Log("Duck detected!");
+                CollectDuck(collider.gameObject);
+                return;
+            }
+        }
+
+        Debug.Log("No duck found in range.");
     }
 
 //Collect Ducks
@@ -92,7 +113,7 @@ public class Duck_Collection : MonoBehaviour
         }
     }
 
-    // Update Duck Count
+// Update Duck Count
     private void UpdateDuckCountText()
     {
         if (duckCountText != null)

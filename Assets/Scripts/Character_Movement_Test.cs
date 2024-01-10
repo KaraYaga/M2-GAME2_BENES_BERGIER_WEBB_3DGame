@@ -3,75 +3,63 @@ using UnityEngine;
 
 public class Character_Movement_Test : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float rotationSpeed = 10f;
-    public float collectionRange = 2f;
-
+    [SerializeField] private float speed = 5f, turnSpeed = 360;
+    private Rigidbody rb;
+    private Vector3 input;
+    private Vector3 relative;
+    private Quaternion rotate;
+    
     private Duck_Collection duckCollection;
 
     void Start()
     {
-        duckCollection = GetComponent<Duck_Collection>();
+        duckCollection = GetComponent<Duck_Collection>(); 
+        rb = GetComponent<Rigidbody>();
     }
 
+// Update is called once per frame
     void Update()
     {
-        HandleMovement();
+        GatherInput();
+        Look();
 
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F)) //F Button to collect ducks
         {
-            CollectDuckInRange();
+            Duck_Collection.instance.CollectDuckInRange();
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) // Left mouse click to throw duck
         {
-            ThrowDuck();
-            Debug.Log("Duck thrown!");
+            Duck_Collection.instance.ThrowDuck();
         }
     }
 
-    void HandleMovement()
+    private void FixedUpdate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-
-        if (moveDirection.magnitude >= 0.1f)
-        {
-            float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            transform.Translate(moveDir.normalized * moveSpeed * Time.deltaTime, Space.World);
-        }
+        Move();
     }
 
-    void CollectDuckInRange()
+    private void GatherInput()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, collectionRange);
-        Debug.Log("Duck detection started!");
+        input = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0, UnityEngine.Input.GetAxisRaw("Vertical"));
+    }
 
-        foreach (Collider collider in colliders)
+    private void Look()
+    {
+        if (input == Vector3.zero)
         {
-            if (collider.CompareTag("Duck"))
-            {
-                Debug.Log("Duck detected!");
-                duckCollection.CollectDuck(collider.gameObject);
-                return;
-            }
+            return;
         }
 
-        Debug.Log("No duck found in range.");
+        relative = (transform.position + input) - transform.position;
+        rotate = Quaternion.LookRotation(relative, Vector3.up);
+
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotate, turnSpeed * Time.deltaTime);
+
     }
 
-    void ThrowDuck()
+    private void Move()
     {
-        duckCollection.ThrowDuck();
+        rb.MovePosition(transform.position + (transform.forward * input.normalized.magnitude) * speed * Time.deltaTime);
     }
-
-    float turnSmoothTime = 0.1f;
-    float turnSmoothVelocity;
 }
