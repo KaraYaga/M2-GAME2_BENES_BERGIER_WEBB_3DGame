@@ -93,7 +93,7 @@ public class Duck_Collection : MonoBehaviour
                     Vector3 spawnPosition = hit.point;
 
                     // Instantiate the duck at the spawn position
-                    GameObject duckInstance = Instantiate(duckPrefab, transform.position, Quaternion.identity);
+                    GameObject duckInstance = Instantiate(duckPrefab, transform.position+new Vector3(0, 0.5f, 0), Quaternion.identity);
                     duckInstance.SetActive(true);
                     Rigidbody duckRigidbody = duckInstance.GetComponent<Rigidbody>();
 

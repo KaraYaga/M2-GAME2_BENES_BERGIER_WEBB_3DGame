@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6609551065408503242}
   - component: {fileID: 5551281557853962046}
   - component: {fileID: 564342013319077449}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: RubberDuck_Black
   m_TagString: Duck
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ MonoBehaviour:
   throwForce: 10
   throwLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   duckPrefabs: []
 --- !u!54 &5551281557853962046
 Rigidbody:
@@ -116,7 +116,7 @@ Rigidbody:
   m_GameObject: {fileID: 176708}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.25
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -141,7 +141,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176708}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 56a810443ab4a884cb22eca89980522a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

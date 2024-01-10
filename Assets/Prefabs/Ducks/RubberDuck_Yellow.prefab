@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5444126516819194201}
   - component: {fileID: 3058761693575856304}
   - component: {fileID: -460420863363320117}
-  m_Layer: 6
+  m_Layer: 10
   m_Name: RubberDuck_Yellow
   m_TagString: Duck
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ Rigidbody:
   m_GameObject: {fileID: 136300}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.25
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -141,7 +141,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136300}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 56a810443ab4a884cb22eca89980522a, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
