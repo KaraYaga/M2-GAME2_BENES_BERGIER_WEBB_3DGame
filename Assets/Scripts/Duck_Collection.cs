@@ -71,7 +71,48 @@ public class Duck_Collection : MonoBehaviour
         }
     }
 
-// Throw them ducks
+    //public void SeeShootDuck()
+    //{
+    //    if (currentDucks > 0)
+    //    {
+    //        currentDucks--;
+    //        UpdateDuckCountText();
+
+    //        if (collectedDucks.Count > 0)
+    //        {
+    //            int randomIndex = Random.Range(0, collectedDucks.Count);
+    //            GameObject duckPrefab = collectedDucks[randomIndex];
+
+    //            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //            //RaycastHit hit;
+
+    //            //if (Physics.Raycast(ray, out hit, Mathf.Infinity, throwLayer))
+    //            //{
+    //            //    // Use hit.point as the position to spawn the duck
+    //            //    Vector3 spawnPosition = hit.point;
+
+    //            //    // Instantiate the duck at the spawn position
+    //            //    GameObject duckInstance = Instantiate(duckPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+    //            //    duckInstance.SetActive(true);
+    //            //    Rigidbody duckRigidbody = duckInstance.GetComponent<Rigidbody>();
+
+    //            //    // Apply force in the direction of the hit point
+    //            //    Vector3 throwDirection = (hit.point - transform.position).normalized;
+    //            //    duckRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+    //            //}
+    //            //else
+    //            //{
+    //            //    Debug.Log("Failed to throw duck. Ensure the throwLayer is set correctly.");
+    //            //}
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("No ducks to throw!");
+    //        }
+    //    }
+    //}
+
+    // Throw them ducks
     public void ThrowDuck()
     {
         if (currentDucks > 0)
@@ -79,37 +120,34 @@ public class Duck_Collection : MonoBehaviour
             currentDucks--;
             UpdateDuckCountText();
 
-            if (collectedDucks.Count > 0)
+            int randomIndex = Random.Range(0, collectedDucks.Count);
+            GameObject duckPrefab = collectedDucks[randomIndex];
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, throwLayer))
             {
-                int randomIndex = Random.Range(0, collectedDucks.Count);
-                GameObject duckPrefab = collectedDucks[randomIndex];
+                // Use hit.point as the position to spawn the duck
+                Vector3 spawnPosition = hit.point;
 
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
+                // Instantiate the duck at the spawn position
+                GameObject duckInstance = Instantiate(duckPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                duckInstance.SetActive(true);
+                Rigidbody duckRigidbody = duckInstance.GetComponent<Rigidbody>();
 
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, throwLayer))
-                {
-                    // Use hit.point as the position to spawn the duck
-                    Vector3 spawnPosition = hit.point;
-
-                    // Instantiate the duck at the spawn position
-                    GameObject duckInstance = Instantiate(duckPrefab, transform.position+new Vector3(0, 0.5f, 0), Quaternion.identity);
-                    duckInstance.SetActive(true);
-                    Rigidbody duckRigidbody = duckInstance.GetComponent<Rigidbody>();
-
-                    // Apply force in the direction of the hit point
-                    Vector3 throwDirection = (hit.point - transform.position).normalized;
-                    duckRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
-                }
-                else
-                {
-                    Debug.Log("Failed to throw duck. Ensure the throwLayer is set correctly.");
-                }
+                // Apply force in the direction of the hit point
+                Vector3 throwDirection = (hit.point - transform.position).normalized;
+                duckRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
             }
             else
             {
-                Debug.Log("No ducks to throw!");
+                Debug.Log("Failed to throw duck. Ensure the throwLayer is set correctly.");
             }
+        }
+        else
+        {
+            Debug.Log("No ducks to throw!");
         }
     }
 

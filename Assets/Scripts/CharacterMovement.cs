@@ -4,39 +4,80 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f, turnSpeed = 360;
+    [SerializeField] private float speed = 5f, turnSpeed = 360f, dashSpeed = 150f, dashTime;
     [SerializeField] GameObject playerAvatar;
-    //[SerializeField] Animator animator;
     private Rigidbody rb;
     private Animator animator;
     private Vector3 input;
     private Vector3 relative;
+    private Vector3 startVelocity;
     private Quaternion rotate;
 
-    // Start is called before the first frame update
+    private bool isDash;
+
+    private Duck_Collection duckCollection;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = playerAvatar.GetComponent<Animator>();
-        //animator = GetComponent<Animator>();
+        duckCollection = GetComponent<Duck_Collection>();
+        startVelocity = rb.velocity;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Animation();
         GatherInput();
         Look();
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDash) //Dash
+        {
+            isDash = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.F)) //F Button to collect ducks
+        {
+            Duck_Collection.instance.CollectDuckInRange();
+        }
+
+        //if (Input.GetMouseButtonDown(1)) // Left mouse click to throw duck
+        //{
+        //    Duck_Collection.instance.SeeShootDuck();
+        //}
+        if (Input.GetMouseButtonUp(1))
+        {
+            Duck_Collection.instance.ThrowDuck();
+        }
     }
 
     private void FixedUpdate()
     {
         Move();
+
+        if(isDash)
+        {
+            StartCoroutine(Dash());
+        }
+        else if(!isDash)
+        {
+            rb.velocity = startVelocity;
+        }
     }
 
     private void GatherInput()
     {
         input = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0, UnityEngine.Input.GetAxisRaw("Vertical"));
+    }
+
+    IEnumerator Dash()
+    {
+        animator.SetBool("Move", false);
+        animator.SetBool("Dashing", true);
+        rb.MovePosition(transform.position + (transform.forward * input.normalized.magnitude) * speed * dashSpeed * Time.deltaTime);
+        yield return new WaitForSeconds(dashTime);
+        isDash = false;
+        animator.SetBool("Dashing", false);
     }
 
     private void Look()
@@ -64,7 +105,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (input.sqrMagnitude != 0)
         {
-            if (input != Vector3.zero)
+            if (input != Vector3.zero && !isDash)
             {
                 animator.SetBool("Move", true);
             }
