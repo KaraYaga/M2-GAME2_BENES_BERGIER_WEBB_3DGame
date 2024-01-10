@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4067133821375641768}
   - component: {fileID: -6589198104778561687}
   - component: {fileID: -2955965555224530248}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RubberDuck_Cyan
   m_TagString: Duck
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ MonoBehaviour:
   throwForce: 10
   throwLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   duckPrefabs: []
 --- !u!54 &-6589198104778561687
 Rigidbody:

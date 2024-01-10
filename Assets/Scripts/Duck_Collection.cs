@@ -12,7 +12,7 @@ public class Duck_Collection : MonoBehaviour
 
     [Header("Duck Throw")]
     [SerializeField] private float throwForce = 10f;
-    [SerializeField] private LayerMask throwLayer;
+    [SerializeField] private LayerMask throwLayer; //Be set in Unity Editor
     [SerializeField] private GameObject[] duckPrefabs;
 
     private List<GameObject> collectedDucks = new List<GameObject>();
@@ -32,38 +32,8 @@ public class Duck_Collection : MonoBehaviour
         }
     }
 
-// Check Duck Count
-    void Update()
-    {
-        //DUCK COLLECTION AND THROWING CALL IN CHARACTER MOVEMENT
-        //if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    CollectDuckInRange();
-        //    UpdateDuckCountText();
-        //}
-
-        //if (Input.GetMouseButtonDown(0)) // Left mouse click to throw duck
-        //{
-        //    ThrowDuck();
-        //}
-    }
-
-// Collecting Ducks
-    private void CollectDuckInRange()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, collectionRange);
-
-        foreach (Collider collider in colliders)
-        {
-            if (collider.CompareTag("Duck"))
-            {
-                CollectDuck(collider.gameObject);
-                return;
-            }
-        }
-    }
-
-    private void CollectDuck(GameObject duckObject)
+//Collect Ducks
+    public void CollectDuck(GameObject duckObject)
     {
         if (currentDucks < maxDucks)
         {
@@ -81,7 +51,7 @@ public class Duck_Collection : MonoBehaviour
     }
 
 // Throw them ducks
-    private void ThrowDuck()
+    public void ThrowDuck()
     {
         if (currentDucks > 0)
         {
@@ -90,24 +60,25 @@ public class Duck_Collection : MonoBehaviour
 
             if (collectedDucks.Count > 0)
             {
-                // Randomly select a duck from the collected ducks
                 int randomIndex = Random.Range(0, collectedDucks.Count);
                 GameObject duckPrefab = collectedDucks[randomIndex];
 
-                // Raycast to determine where to throw the duck
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, throwLayer))
                 {
-                    // Calculate the direction to throw the duck
-                    Vector3 throwDirection = hit.point - transform.position;
-                    throwDirection.y = 0f; // Ensure the throw is along the horizontal plane
+                    // Use hit.point as the position to spawn the duck
+                    Vector3 spawnPosition = hit.point;
 
-                    // Spawn the duck and apply force
+                    // Instantiate the duck at the spawn position
                     GameObject duckInstance = Instantiate(duckPrefab, transform.position, Quaternion.identity);
+                    duckInstance.SetActive(true);
                     Rigidbody duckRigidbody = duckInstance.GetComponent<Rigidbody>();
-                    duckRigidbody.AddForce(throwDirection.normalized * throwForce, ForceMode.Impulse);
+
+                    // Apply force in the direction of the hit point
+                    Vector3 throwDirection = (hit.point - transform.position).normalized;
+                    duckRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
                 }
                 else
                 {
@@ -121,7 +92,7 @@ public class Duck_Collection : MonoBehaviour
         }
     }
 
-// Update Duck Count
+    // Update Duck Count
     private void UpdateDuckCountText()
     {
         if (duckCountText != null)
