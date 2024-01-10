@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float speed = 5f, turnSpeed = 360;
     private Rigidbody rb;
     private Vector3 input;
     private Vector3 relative;
@@ -35,13 +35,17 @@ public class CharacterMovement : MonoBehaviour
 
     private void Look()
     {
-        if (input != Vector3.zero)
+        if (input == Vector3.zero)
         {
-            relative = (transform.position + input) - transform.position;
-            rotate = Quaternion.LookRotation(relative, Vector3.up);
-
-            transform.rotation = rotate;
+            return;
         }
+
+        //rotate = Quaternion.LookRotation(input.ToIso(), Vector3.up);
+
+        relative = (transform.position + input) - transform.position;
+        rotate = Quaternion.LookRotation(relative, Vector3.up);
+
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotate, turnSpeed * Time.deltaTime);
 
     }
 
