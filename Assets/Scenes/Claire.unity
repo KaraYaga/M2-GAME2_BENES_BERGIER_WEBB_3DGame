@@ -509,8 +509,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca97c6fefab4cb46a20cef26156679d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3.5
   turnSpeed: 500
+  playerAvatar: {fileID: 1687665112}
 --- !u!1 &1678288506
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,7 +573,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.57
+  orthographic size: 5.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -603,6 +604,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 32, y: 45, z: 0}
+--- !u!1 &1687665112 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 772726313271360357, guid: 7577e3de9babd604d9880ded032d1752, type: 3}
+  m_PrefabInstance: {fileID: 1997531519}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1997531519
 PrefabInstance:
   m_ObjectHideFlags: 0

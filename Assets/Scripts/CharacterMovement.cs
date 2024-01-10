@@ -5,7 +5,10 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 5f, turnSpeed = 360;
+    [SerializeField] GameObject playerAvatar;
+    //[SerializeField] Animator animator;
     private Rigidbody rb;
+    private Animator animator;
     private Vector3 input;
     private Vector3 relative;
     private Quaternion rotate;
@@ -14,11 +17,14 @@ public class CharacterMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = playerAvatar.GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Animation();
         GatherInput();
         Look();
     }
@@ -40,10 +46,10 @@ public class CharacterMovement : MonoBehaviour
             return;
         }
 
-        //rotate = Quaternion.LookRotation(input.ToIso(), Vector3.up);
-
         relative = (transform.position + input) - transform.position;
         rotate = Quaternion.LookRotation(relative, Vector3.up);
+
+        rotate *= Quaternion.AngleAxis(45, Vector3.up);
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotate, turnSpeed * Time.deltaTime);
 
@@ -52,8 +58,20 @@ public class CharacterMovement : MonoBehaviour
     private void Move()
     {
         rb.MovePosition(transform.position + (transform.forward * input.normalized.magnitude) * speed * Time.deltaTime);
-        //Vector3 movement = new Vector3(transform.forward.x * input.y * speed * Time.deltaTime,
-        //    0, transform.forward.z * input.y * speed * Time.deltaTime);
-        //rb.MovePosition(transform.position + movement);
+    }
+
+    private void Animation()
+    {
+        if (input.sqrMagnitude != 0)
+        {
+            if (input != Vector3.zero)
+            {
+                animator.SetBool("Move", true);
+            }
+        }
+        else
+        {
+            animator.SetBool("Move", false);
+        }
     }
 }
