@@ -18,8 +18,8 @@ TagManager:
   - Ground
   - DuckLayer
   - EnemyLayer
-  - 
-  - 
+  - Rain
+  - Buttons
   - 
   - 
   - 
@@ -41,4 +41,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Rain
+    uniqueID: 1494761037
     locked: 0
