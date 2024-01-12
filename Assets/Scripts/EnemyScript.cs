@@ -17,6 +17,7 @@ public class EnemyScript : MonoBehaviour
 
         transform.position = new Vector3(x, y * transform.right.y, z);
         angle += speed * Time.deltaTime;
+
         //Rotation
         transform.LookAt(target.position);
         transform.Rotate(new Vector3 (0, 90, 0), Space.World);
