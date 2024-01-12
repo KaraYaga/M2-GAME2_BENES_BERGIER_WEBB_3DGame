@@ -31,7 +31,7 @@ public class CharacterMovement : MonoBehaviour
         GatherInput();
         Look();
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDash) //Dash
+        if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.E)) && !isDash) //Dash
         {
             isDash = true;
         }

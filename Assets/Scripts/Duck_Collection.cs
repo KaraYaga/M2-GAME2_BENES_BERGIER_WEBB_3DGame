@@ -15,6 +15,8 @@ public class Duck_Collection : MonoBehaviour
     [SerializeField] private float throwForce = 10f;
     [SerializeField] private LayerMask throwLayer; //Be set in Unity Editor
     [SerializeField] private GameObject[] duckPrefabs;
+    [SerializeField] private GameObject mainCharacter;
+    private Rigidbody rb;
 
     private List<GameObject> collectedDucks = new List<GameObject>();
 
@@ -22,6 +24,8 @@ public class Duck_Collection : MonoBehaviour
     void Start()
     {
         instance = this;
+        rb = GetComponent<Rigidbody>();
+
         currentDucks = 0;
 
         if (duckCountText == null)
@@ -117,7 +121,6 @@ public class Duck_Collection : MonoBehaviour
     {
         if (currentDucks > 0)
         {
-            currentDucks--;
             UpdateDuckCountText();
 
             int randomIndex = Random.Range(0, collectedDucks.Count);
@@ -128,17 +131,17 @@ public class Duck_Collection : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, throwLayer))
             {
-                // Use hit.point as the position to spawn the duck
-                Vector3 spawnPosition = hit.point;
-
-                // Instantiate the duck at the spawn position
-                GameObject duckInstance = Instantiate(duckPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-                duckInstance.SetActive(true);
-                Rigidbody duckRigidbody = duckInstance.GetComponent<Rigidbody>();
+                // Create the duck at the spawn position
+                duckPrefab.SetActive(true);
+                duckPrefab.transform.position = mainCharacter.transform.position + new Vector3(0, 0.5f, 0);
+                duckPrefab.transform.rotation = Quaternion.LookRotation(hit.point);
 
                 // Apply force in the direction of the hit point
-                Vector3 throwDirection = (hit.point - transform.position).normalized;
-                duckRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+                Vector3 throwDirection = (transform.position - hit.point).normalized;
+                Vector2 newVelocity = throwDirection * throwForce;
+                rb.velocity = newVelocity;
+                currentDucks--;
+
             }
             else
             {

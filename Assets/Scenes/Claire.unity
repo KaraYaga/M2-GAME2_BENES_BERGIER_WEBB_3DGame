@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 438771634}
   - component: {fileID: 438771631}
   - component: {fileID: 438771633}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 2020582710}
-  speed: 5
+  speed: 0.2
   radius: 1
   angle: 0
 --- !u!54 &438771634
@@ -301,7 +301,16 @@ PrefabInstance:
       propertyPath: m_Drag
       value: 0.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5444126516819194201, guid: 47eccfdaaa8490246bb90d54bab6ccbd, type: 3}
+      propertyPath: throwForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5444126516819194201, guid: 47eccfdaaa8490246bb90d54bab6ccbd, type: 3}
+      propertyPath: mainCharacter
+      value: 
+      objectReference: {fileID: 1424336406}
+    m_RemovedComponents:
+    - {fileID: 5444126516819194201, guid: 47eccfdaaa8490246bb90d54bab6ccbd, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -714,11 +723,12 @@ MonoBehaviour:
   currentDucks: 0
   collectionRange: 1
   duckCountText: {fileID: 0}
-  throwForce: 10
+  throwForce: 20
   throwLayer:
     serializedVersion: 2
     m_Bits: 2048
   duckPrefabs: []
+  mainCharacter: {fileID: 1424336406}
 --- !u!1001 &1547434461
 PrefabInstance:
   m_ObjectHideFlags: 0
