@@ -77,43 +77,7 @@ public class Duck_Collection : MonoBehaviour
 
     //public void SeeShootDuck()
     //{
-    //    if (currentDucks > 0)
-    //    {
-    //        currentDucks--;
-    //        UpdateDuckCountText();
-
-    //        if (collectedDucks.Count > 0)
-    //        {
-    //            int randomIndex = Random.Range(0, collectedDucks.Count);
-    //            GameObject duckPrefab = collectedDucks[randomIndex];
-
-    //            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //            //RaycastHit hit;
-
-    //            //if (Physics.Raycast(ray, out hit, Mathf.Infinity, throwLayer))
-    //            //{
-    //            //    // Use hit.point as the position to spawn the duck
-    //            //    Vector3 spawnPosition = hit.point;
-
-    //            //    // Instantiate the duck at the spawn position
-    //            //    GameObject duckInstance = Instantiate(duckPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-    //            //    duckInstance.SetActive(true);
-    //            //    Rigidbody duckRigidbody = duckInstance.GetComponent<Rigidbody>();
-
-    //            //    // Apply force in the direction of the hit point
-    //            //    Vector3 throwDirection = (hit.point - transform.position).normalized;
-    //            //    duckRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
-    //            //}
-    //            //else
-    //            //{
-    //            //    Debug.Log("Failed to throw duck. Ensure the throwLayer is set correctly.");
-    //            //}
-    //        }
-    //        else
-    //        {
-    //            Debug.Log("No ducks to throw!");
-    //        }
-    //    }
+        //trajectory projectile
     //}
 
     // Throw them ducks
@@ -141,7 +105,7 @@ public class Duck_Collection : MonoBehaviour
                 Vector3 throwDirection = (duckPrefab.transform.forward * throwForce * distance) + new Vector3(0, upForce, 0);
                 duckPrefab.GetComponent<Rigidbody>().AddForce(throwDirection, ForceMode.VelocityChange);
                 //duckPrefab.GetComponent<Rigidbody>().AddForce(Vector3.up * upForce * distance, ForceMode.Impulse);
-                //currentDucks--;
+                currentDucks--;
 
             }
             else

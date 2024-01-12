@@ -43,6 +43,7 @@ public class CharacterMovement : MonoBehaviour
 
         //if (Input.GetMouseButtonDown(1)) // Left mouse click to throw duck
         //{
+        //    trajectory projectile
         //    Duck_Collection.instance.SeeShootDuck();
         //}
         if (Input.GetMouseButtonUp(1))
