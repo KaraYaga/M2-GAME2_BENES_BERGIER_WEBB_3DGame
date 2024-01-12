@@ -14,6 +14,7 @@ public class Duck_Collection : MonoBehaviour
 
     [Header("Duck Throw")]
     [SerializeField] private float throwForce;
+    [SerializeField] private float upForce;
     [SerializeField] private LayerMask throwLayer; //Be set in Unity Editor
     [SerializeField] private GameObject[] duckPrefabs;
     [SerializeField] private GameObject mainCharacter;
@@ -135,8 +136,11 @@ public class Duck_Collection : MonoBehaviour
                 duckPrefab.transform.LookAt(hit.transform.position);
                 duckPrefab.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 duckPrefab.SetActive(true);
-                Vector3 throwDirection = (duckPrefab.transform.forward  * throwForce * Vector3.Distance(duckPrefab.transform.position, hit.transform.position)) + (Vector3.up * 1f);
-                duckPrefab.GetComponent<Rigidbody>().AddForce(throwDirection, ForceMode.Impulse);
+
+                float distance = Vector3.Distance(duckPrefab.transform.position, hit.transform.position);
+                Vector3 throwDirection = (duckPrefab.transform.forward * throwForce * distance) + new Vector3(0, upForce, 0);
+                duckPrefab.GetComponent<Rigidbody>().AddForce(throwDirection, ForceMode.VelocityChange);
+                //duckPrefab.GetComponent<Rigidbody>().AddForce(Vector3.up * upForce * distance, ForceMode.Impulse);
                 //currentDucks--;
 
             }

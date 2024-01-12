@@ -728,8 +728,8 @@ MonoBehaviour:
   currentDucks: 0
   collectionRange: 1
   duckCountText: {fileID: 0}
-  throwForce: 1
-  distanceFactor: 0
+  throwForce: 2
+  upForce: 4
   throwLayer:
     serializedVersion: 2
     m_Bits: 2048
