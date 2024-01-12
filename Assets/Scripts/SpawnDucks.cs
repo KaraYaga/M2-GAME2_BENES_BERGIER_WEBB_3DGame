@@ -22,6 +22,8 @@ public class DuckSpawner : MonoBehaviour
     {
         normalGravity = Physics.gravity;
         Physics.gravity = new Vector3(0, -gravityModifier, 0);
+        SpawnDuck();
+        spawnHeight = Camera.main.ViewportToWorldPoint(Vector2.zero).y + 30;
     }
 
     void Update()
