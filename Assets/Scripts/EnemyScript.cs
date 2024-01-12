@@ -19,6 +19,7 @@ public class EnemyScript : MonoBehaviour
         angle += speed * Time.deltaTime;
 
         //transform.LookAt(target.position + new Vector3(target.position.x + 45, 0,0));
+        //transform.LookAt(transform.right);
         transform.LookAt(target.position);
     }
 }
