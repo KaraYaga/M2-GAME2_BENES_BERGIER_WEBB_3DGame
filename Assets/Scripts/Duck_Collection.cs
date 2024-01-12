@@ -6,17 +6,17 @@ public class Duck_Collection : MonoBehaviour
 {
     public static Duck_Collection instance;
     [Header("Duck Collection")]
+    [SerializeField] private Transform enemy; //ENLEVE MOI
     [SerializeField] private int maxDucks = 15;
     [SerializeField] private int currentDucks;
     [SerializeField] private float collectionRange = 1;
     [SerializeField] private TextMeshProUGUI duckCountText;
 
     [Header("Duck Throw")]
-    [SerializeField] private float throwForce = 10f;
+    [SerializeField] private float throwForce;
     [SerializeField] private LayerMask throwLayer; //Be set in Unity Editor
     [SerializeField] private GameObject[] duckPrefabs;
     [SerializeField] private GameObject mainCharacter;
-    private Rigidbody rb;
 
     private List<GameObject> collectedDucks = new List<GameObject>();
 
@@ -24,7 +24,6 @@ public class Duck_Collection : MonoBehaviour
     void Start()
     {
         instance = this;
-        rb = GetComponent<Rigidbody>();
 
         currentDucks = 0;
 
@@ -132,15 +131,13 @@ public class Duck_Collection : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, throwLayer))
             {
                 // Create the duck at the spawn position
+                duckPrefab.transform.position = mainCharacter.transform.position + transform.up;
+                duckPrefab.transform.LookAt(hit.transform.position);
+                duckPrefab.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 duckPrefab.SetActive(true);
-                duckPrefab.transform.position = mainCharacter.transform.position + new Vector3(0, 0.5f, 0);
-                duckPrefab.transform.rotation = Quaternion.LookRotation(hit.point);
-
-                // Apply force in the direction of the hit point
-                Vector3 throwDirection = (transform.position - hit.point).normalized;
-                Vector2 newVelocity = throwDirection * throwForce;
-                rb.velocity = newVelocity;
-                currentDucks--;
+                Vector3 throwDirection = (duckPrefab.transform.forward  * throwForce * Vector3.Distance(duckPrefab.transform.position, hit.transform.position)) + (Vector3.up * 1f);
+                duckPrefab.GetComponent<Rigidbody>().AddForce(throwDirection, ForceMode.Impulse);
+                //currentDucks--;
 
             }
             else
@@ -161,5 +158,12 @@ public class Duck_Collection : MonoBehaviour
         {
             duckCountText.text = "Ducks: " + currentDucks.ToString();
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!enemy) return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, enemy.position);
     }
 }

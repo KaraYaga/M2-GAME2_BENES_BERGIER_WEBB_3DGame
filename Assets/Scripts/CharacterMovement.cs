@@ -13,7 +13,7 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 startVelocity;
     private Quaternion rotate;
 
-    private bool isDash;
+    private bool isDash, throwDuck = false;
 
     private Duck_Collection duckCollection;
 
@@ -47,12 +47,17 @@ public class CharacterMovement : MonoBehaviour
         //}
         if (Input.GetMouseButtonUp(1))
         {
-            Duck_Collection.instance.ThrowDuck();
+            throwDuck = true;
         }
     }
 
     private void FixedUpdate()
     {
+        if (throwDuck)
+        {
+            Duck_Collection.instance.ThrowDuck();
+            throwDuck = false;
+        }
         Move();
 
         if(isDash)
