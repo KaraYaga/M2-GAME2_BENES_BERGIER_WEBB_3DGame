@@ -45,7 +45,7 @@ public class DuckSpawner : MonoBehaviour
 
         // Calculate a Z position based on the range and a function that increases with distance
         float distanceFactor = Random.Range(0.0f, 1.0f); // Adjust the range as needed
-        float zPosition = Mathf.Lerp(-20.0f, 40.0f, distanceFactor);
+        float zPosition = Mathf.Lerp(-20.0f, 30.0f, distanceFactor);
 
         Vector3 spawnPosition = new Vector3(
             Random.Range(-15.0f, 15.0f), // Adjust the X range as needed
