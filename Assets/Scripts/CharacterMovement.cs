@@ -4,33 +4,80 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f, turnSpeed = 360;
+    [SerializeField] private float speed = 5f, turnSpeed = 360f, dashSpeed = 150f, dashTime;
+    [SerializeField] GameObject playerAvatar;
     private Rigidbody rb;
+    private Animator animator;
     private Vector3 input;
     private Vector3 relative;
+    private Vector3 startVelocity;
     private Quaternion rotate;
 
-    // Start is called before the first frame update
+    private bool isDash;
+
+    private Duck_Collection duckCollection;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = playerAvatar.GetComponent<Animator>();
+        duckCollection = GetComponent<Duck_Collection>();
+        startVelocity = rb.velocity;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        Animation();
         GatherInput();
         Look();
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDash) //Dash
+        {
+            isDash = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.F)) //F Button to collect ducks
+        {
+            Duck_Collection.instance.CollectDuckInRange();
+        }
+
+        //if (Input.GetMouseButtonDown(1)) // Left mouse click to throw duck
+        //{
+        //    Duck_Collection.instance.SeeShootDuck();
+        //}
+        if (Input.GetMouseButtonUp(1))
+        {
+            Duck_Collection.instance.ThrowDuck();
+        }
     }
 
     private void FixedUpdate()
     {
         Move();
+
+        if(isDash)
+        {
+            StartCoroutine(Dash());
+        }
+        else if(!isDash)
+        {
+            rb.velocity = startVelocity;
+        }
     }
 
     private void GatherInput()
     {
         input = new Vector3(UnityEngine.Input.GetAxisRaw("Horizontal"), 0, UnityEngine.Input.GetAxisRaw("Vertical"));
+    }
+
+    IEnumerator Dash()
+    {
+        animator.SetBool("Move", false);
+        animator.SetBool("Dashing", true);
+        rb.MovePosition(transform.position + (transform.forward * input.normalized.magnitude) * speed * dashSpeed * Time.deltaTime);
+        yield return new WaitForSeconds(dashTime);
+        isDash = false;
+        animator.SetBool("Dashing", false);
     }
 
     private void Look()
@@ -40,10 +87,10 @@ public class CharacterMovement : MonoBehaviour
             return;
         }
 
-        //rotate = Quaternion.LookRotation(input.ToIso(), Vector3.up);
-
         relative = (transform.position + input) - transform.position;
         rotate = Quaternion.LookRotation(relative, Vector3.up);
+
+        rotate *= Quaternion.AngleAxis(45, Vector3.up);
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotate, turnSpeed * Time.deltaTime);
 
@@ -52,8 +99,20 @@ public class CharacterMovement : MonoBehaviour
     private void Move()
     {
         rb.MovePosition(transform.position + (transform.forward * input.normalized.magnitude) * speed * Time.deltaTime);
-        //Vector3 movement = new Vector3(transform.forward.x * input.y * speed * Time.deltaTime,
-        //    0, transform.forward.z * input.y * speed * Time.deltaTime);
-        //rb.MovePosition(transform.position + movement);
+    }
+
+    private void Animation()
+    {
+        if (input.sqrMagnitude != 0)
+        {
+            if (input != Vector3.zero && !isDash)
+            {
+                animator.SetBool("Move", true);
+            }
+        }
+        else
+        {
+            animator.SetBool("Move", false);
+        }
     }
 }
