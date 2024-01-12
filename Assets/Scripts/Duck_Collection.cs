@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class Duck_Collection : MonoBehaviour
 {
@@ -14,10 +15,10 @@ public class Duck_Collection : MonoBehaviour
 
     [Header("Duck Throw")]
     [SerializeField] private float throwForce;
-    [SerializeField] private float upForce;
+    [SerializeField] private float upForce, enemyRange;
     [SerializeField] private LayerMask throwLayer; //Be set in Unity Editor
-    [SerializeField] private GameObject[] duckPrefabs;
     [SerializeField] private GameObject mainCharacter;
+
 
     private List<GameObject> collectedDucks = new List<GameObject>();
 
@@ -37,8 +38,8 @@ public class Duck_Collection : MonoBehaviour
             UpdateDuckCountText();
         }
     }
-    
-// Detecting when ducks are in range
+
+    // Detecting when ducks are in range
     public void CollectDuckInRange()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, collectionRange);
@@ -68,6 +69,8 @@ public class Duck_Collection : MonoBehaviour
             duckObject.SetActive(false);
             collectedDucks.Add(duckObject);
 
+            UpdateDuckCountText();
+
         }
         else
         {
@@ -85,28 +88,27 @@ public class Duck_Collection : MonoBehaviour
     {
         if (currentDucks > 0)
         {
-            UpdateDuckCountText();
-
-            int randomIndex = Random.Range(0, collectedDucks.Count);
-            GameObject duckPrefab = collectedDucks[randomIndex];
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, throwLayer))
             {
                 // Create the duck at the spawn position
+                int randomIndex = Random.Range(0, collectedDucks.Count);
+                GameObject duckPrefab = collectedDucks[randomIndex];
+
                 duckPrefab.transform.position = mainCharacter.transform.position + transform.up;
                 duckPrefab.transform.LookAt(hit.transform.position);
                 duckPrefab.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                duckPrefab.SetActive(true);
 
                 float distance = Vector3.Distance(duckPrefab.transform.position, hit.transform.position);
+                duckPrefab.SetActive(true);
+
                 Vector3 throwDirection = (duckPrefab.transform.forward * throwForce * distance) + new Vector3(0, upForce, 0);
                 duckPrefab.GetComponent<Rigidbody>().AddForce(throwDirection, ForceMode.VelocityChange);
-                //duckPrefab.GetComponent<Rigidbody>().AddForce(Vector3.up * upForce * distance, ForceMode.Impulse);
-                currentDucks--;
+                //currentDucks--;
 
+                UpdateDuckCountText();
             }
             else
             {
