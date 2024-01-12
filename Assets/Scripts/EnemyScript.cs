@@ -15,11 +15,10 @@ public class EnemyScript : MonoBehaviour
         float y = target.position.y;
         float z = target.position.z + Mathf.Sin(angle) * radius;
 
-        transform.position = new Vector3(x, y, z);
+        transform.position = new Vector3(x, y * transform.right.y, z);
         angle += speed * Time.deltaTime;
-
-        //transform.LookAt(target.position + new Vector3(target.position.x + 45, 0,0));
-        //transform.LookAt(transform.right);
+        //Rotation
         transform.LookAt(target.position);
+        transform.Rotate(new Vector3 (0, 90, 0), Space.World);
     }
 }
