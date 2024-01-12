@@ -105,7 +105,7 @@ MonoBehaviour:
   throwForce: 10
   throwLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   duckPrefabs: []
 --- !u!54 &-2469529161257599351
 Rigidbody:
