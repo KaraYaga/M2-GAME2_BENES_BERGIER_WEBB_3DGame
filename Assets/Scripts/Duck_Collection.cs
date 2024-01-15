@@ -1,20 +1,24 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class Duck_Collection : MonoBehaviour
 {
     public static Duck_Collection instance;
     [Header("Duck Collection")]
+    [SerializeField] private Transform enemy; //ENLEVE MOI
     [SerializeField] private int maxDucks = 15;
     [SerializeField] private int currentDucks;
     [SerializeField] private float collectionRange = 1;
     [SerializeField] private TextMeshProUGUI duckCountText;
 
     [Header("Duck Throw")]
-    [SerializeField] private float throwForce = 10f;
+    [SerializeField] private float throwForce;
+    [SerializeField] private float upForce, enemyRange;
     [SerializeField] private LayerMask throwLayer; //Be set in Unity Editor
-    [SerializeField] private GameObject[] duckPrefabs;
+    [SerializeField] private GameObject mainCharacter;
+
 
     private List<GameObject> collectedDucks = new List<GameObject>();
 
@@ -22,6 +26,7 @@ public class Duck_Collection : MonoBehaviour
     void Start()
     {
         instance = this;
+
         currentDucks = 0;
 
         if (duckCountText == null)
@@ -33,8 +38,8 @@ public class Duck_Collection : MonoBehaviour
             UpdateDuckCountText();
         }
     }
-    
-// Detecting when ducks are in range
+
+    // Detecting when ducks are in range
     public void CollectDuckInRange()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, collectionRange);
@@ -64,6 +69,8 @@ public class Duck_Collection : MonoBehaviour
             duckObject.SetActive(false);
             collectedDucks.Add(duckObject);
 
+            UpdateDuckCountText();
+
         }
         else
         {
@@ -73,43 +80,7 @@ public class Duck_Collection : MonoBehaviour
 
     //public void SeeShootDuck()
     //{
-    //    if (currentDucks > 0)
-    //    {
-    //        currentDucks--;
-    //        UpdateDuckCountText();
-
-    //        if (collectedDucks.Count > 0)
-    //        {
-    //            int randomIndex = Random.Range(0, collectedDucks.Count);
-    //            GameObject duckPrefab = collectedDucks[randomIndex];
-
-    //            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //            //RaycastHit hit;
-
-    //            //if (Physics.Raycast(ray, out hit, Mathf.Infinity, throwLayer))
-    //            //{
-    //            //    // Use hit.point as the position to spawn the duck
-    //            //    Vector3 spawnPosition = hit.point;
-
-    //            //    // Instantiate the duck at the spawn position
-    //            //    GameObject duckInstance = Instantiate(duckPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-    //            //    duckInstance.SetActive(true);
-    //            //    Rigidbody duckRigidbody = duckInstance.GetComponent<Rigidbody>();
-
-    //            //    // Apply force in the direction of the hit point
-    //            //    Vector3 throwDirection = (hit.point - transform.position).normalized;
-    //            //    duckRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
-    //            //}
-    //            //else
-    //            //{
-    //            //    Debug.Log("Failed to throw duck. Ensure the throwLayer is set correctly.");
-    //            //}
-    //        }
-    //        else
-    //        {
-    //            Debug.Log("No ducks to throw!");
-    //        }
-    //    }
+        //trajectory projectile
     //}
 
     // Throw them ducks
@@ -117,28 +88,27 @@ public class Duck_Collection : MonoBehaviour
     {
         if (currentDucks > 0)
         {
-            currentDucks--;
-            UpdateDuckCountText();
-
-            int randomIndex = Random.Range(0, collectedDucks.Count);
-            GameObject duckPrefab = collectedDucks[randomIndex];
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, throwLayer))
             {
-                // Use hit.point as the position to spawn the duck
-                Vector3 spawnPosition = hit.point;
+                // Create the duck at the spawn position
+                int randomIndex = Random.Range(0, collectedDucks.Count);
+                GameObject duckPrefab = collectedDucks[randomIndex];
 
-                // Instantiate the duck at the spawn position
-                GameObject duckInstance = Instantiate(duckPrefab, transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
-                duckInstance.SetActive(true);
-                Rigidbody duckRigidbody = duckInstance.GetComponent<Rigidbody>();
+                duckPrefab.transform.position = mainCharacter.transform.position + transform.up;
+                duckPrefab.transform.LookAt(hit.transform.position);
+                duckPrefab.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
-                // Apply force in the direction of the hit point
-                Vector3 throwDirection = (hit.point - transform.position).normalized;
-                duckRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+                float distance = Vector3.Distance(duckPrefab.transform.position, hit.transform.position);
+                duckPrefab.SetActive(true);
+
+                Vector3 throwDirection = (duckPrefab.transform.forward * throwForce * distance) + new Vector3(0, upForce, 0);
+                duckPrefab.GetComponent<Rigidbody>().AddForce(throwDirection, ForceMode.VelocityChange);
+                //currentDucks--;
+
+                UpdateDuckCountText();
             }
             else
             {
@@ -158,5 +128,12 @@ public class Duck_Collection : MonoBehaviour
         {
             duckCountText.text = "Ducks: " + currentDucks.ToString();
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!enemy) return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, enemy.position);
     }
 }
