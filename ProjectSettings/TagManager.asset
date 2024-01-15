@@ -18,8 +18,8 @@ TagManager:
   - Ground
   - DuckLayer
   - EnemyLayer
-  - 
-  - Character
+  - Rain
+  - Buttons
   - 
   - 
   - 
@@ -42,6 +42,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: light
-    uniqueID: 845333615
+  - name: Rain
+    uniqueID: 1494761037
     locked: 0
