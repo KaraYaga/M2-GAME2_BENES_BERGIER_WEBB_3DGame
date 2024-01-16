@@ -51,11 +51,6 @@ public class CharacterMovement : MonoBehaviour
         {
             throwDuck = true;
         }
-
-        //if(Input.GetMouseButtonDown(0))
-        //{
-        //    //hurt enemy if collision
-        //}
     }
 
     private void FixedUpdate()

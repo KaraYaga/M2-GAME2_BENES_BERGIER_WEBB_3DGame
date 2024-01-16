@@ -15,9 +15,9 @@ public class EnemyScript : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private Transform target;
     [SerializeField] float speed = 2f, radius = 1f, angle = 0f;
+    private bool EnemyInRange;
 
     [Header("Knockback")]
-    //[SerializeField] float knockback;
     [SerializeField] float timeOfKnockback;
 
 
@@ -28,17 +28,24 @@ public class EnemyScript : MonoBehaviour
 
     void Update()
     {
+        if(!EnemyInRange)
+        {
+            float x = target.position.x + Mathf.Cos(angle) * radius;
+            float y = target.position.y;
+            float z = target.position.z + Mathf.Sin(angle) * radius;
 
-        float x = target.position.x + Mathf.Cos(angle) * radius;
-        float y = target.position.y;
-        float z = target.position.z + Mathf.Sin(angle) * radius;
+            transform.position = new Vector3(x, y * transform.right.y, z);
+            angle += speed * Time.deltaTime;
 
-        transform.position = new Vector3(x, y * transform.right.y, z);
-        angle += speed * Time.deltaTime;
-
-        //Rotation
-        transform.LookAt(target.position);
-        transform.Rotate(new Vector3(0, 90, 0), Space.World);
+            //Rotation
+            transform.LookAt(target.position);
+            transform.Rotate(new Vector3(0, 90, 0), Space.World);
+        }
+        else
+        {
+            //dash on character
+        }
+        
 
         //Die
         if (life <= 0)
