@@ -13,7 +13,7 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 startVelocity;
     private Quaternion rotate;
 
-    private bool isDash, throwDuck = false;
+    private bool isDash, throwDuck;
 
     private Duck_Collection duckCollection;
 
@@ -46,9 +46,14 @@ public class CharacterMovement : MonoBehaviour
         //    trajectory projectile
         //    Duck_Collection.instance.SeeShootDuck();
         //}
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonDown(1))
         {
             throwDuck = true;
+        }
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            //hurt enemy if collision
         }
     }
 
@@ -119,6 +124,11 @@ public class CharacterMovement : MonoBehaviour
         else
         {
             animator.SetBool("Move", false);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.SetTrigger("Attack");
         }
     }
 }
