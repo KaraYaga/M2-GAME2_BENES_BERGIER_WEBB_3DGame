@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -51,10 +52,10 @@ public class CharacterMovement : MonoBehaviour
             throwDuck = true;
         }
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            //hurt enemy if collision
-        }
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    //hurt enemy if collision
+        //}
     }
 
     private void FixedUpdate()
@@ -129,6 +130,20 @@ public class CharacterMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("Attack");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var currentAnimLayer = animator.GetCurrentAnimatorClipInfo(0);
+        var curentAnimName = currentAnimLayer[0].clip.name;
+
+        if (other.gameObject.tag == "Enemy")
+        {
+            if (curentAnimName == "attack")
+            {
+                other.gameObject.GetComponent<EnemyScript>().SetLife(1f);
+            }            
         }
     }
 }

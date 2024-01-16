@@ -7,7 +7,7 @@ using UnityEngine.Windows;
 public class EnemyScript : MonoBehaviour
 {
     [SerializeField] private Transform target;
-    [SerializeField] float speed = 2f, radius = 1f, angle = 0f;
+    [SerializeField] float speed = 2f, radius = 1f, angle = 0f, life = 5f;
 
     void Update()
     {
@@ -21,5 +21,24 @@ public class EnemyScript : MonoBehaviour
         //Rotation
         transform.LookAt(target.position);
         transform.Rotate(new Vector3 (0, 90, 0), Space.World);
+
+        //Die
+        if (life <= 0)
+        {
+            Die();
+        }
     }
+
+    public void SetLife(float damage)
+    {
+        life -= damage;
+        Debug.Log(life);
+    }
+
+    private void Die()
+    {
+        //die
+    }
+
+
 }
