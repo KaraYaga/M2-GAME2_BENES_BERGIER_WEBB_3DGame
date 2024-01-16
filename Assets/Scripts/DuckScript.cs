@@ -8,7 +8,7 @@ public class DuckScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<EnemyScript>().SetLife(2f);
+            collision.gameObject.GetComponent<EnemyScript>().SetLife(2f, gameObject);
         }
     }
 }

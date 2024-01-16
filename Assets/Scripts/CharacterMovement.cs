@@ -142,7 +142,7 @@ public class CharacterMovement : MonoBehaviour
         {
             if (curentAnimName == "attack")
             {
-                other.gameObject.GetComponent<EnemyScript>().SetLife(1f);
+                other.gameObject.GetComponent<EnemyScript>().SetLife(1f, gameObject);
             }            
         }
     }
