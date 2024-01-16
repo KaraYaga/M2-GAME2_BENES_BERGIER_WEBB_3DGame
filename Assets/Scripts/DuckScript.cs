@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class DuckScript : MonoBehaviour
 {
-    private void OnCollisionStay(Collision collision)
+    [SerializeField] float enemyKnockback = 10f;
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<EnemyScript>().SetLife(2f);
+            collision.gameObject.GetComponent<EnemyScript>().SetLife(2f, enemyKnockback);
+            Debug.Log("damage");
         }
     }
 }

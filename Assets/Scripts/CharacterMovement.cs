@@ -5,7 +5,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CharacterMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f, turnSpeed = 360f, dashSpeed = 150f, dashTime;
+    [SerializeField] private float speed = 5f, turnSpeed = 360f, dashSpeed = 150f, dashTime, enemyKnockback = 15f;
     [SerializeField] GameObject playerAvatar;
     private Rigidbody rb;
     private Animator animator;
@@ -51,11 +51,6 @@ public class CharacterMovement : MonoBehaviour
         {
             throwDuck = true;
         }
-
-        //if(Input.GetMouseButtonDown(0))
-        //{
-        //    //hurt enemy if collision
-        //}
     }
 
     private void FixedUpdate()
@@ -142,7 +137,7 @@ public class CharacterMovement : MonoBehaviour
         {
             if (curentAnimName == "attack")
             {
-                other.gameObject.GetComponent<EnemyScript>().SetLife(1f);
+                other.gameObject.GetComponent<EnemyScript>().SetLife(1f, enemyKnockback);
             }            
         }
     }
