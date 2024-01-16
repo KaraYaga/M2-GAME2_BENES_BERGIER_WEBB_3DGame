@@ -21,22 +21,19 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] bool isBeingKnockback;
     [SerializeField] float knockback, timeOfKnockback;
     private Vector3 knockbackLocation;
-    private float yAxisLocation;
+    private Vector3 knockBackAngle;
     private GameObject gameObjectForward;
 
     [Header("Attack")]
     [SerializeField] private float speedToAttack; //knockbackOfAttack;
     protected bool isAttacking;
     public GameObject mainCharacter;
-    //private RigidbodyConstraints originalConstraints;
 
 
     private void Start()
     {
         animator = Enemy.GetComponent<Animator>();
         GetComponent<Rigidbody>().velocity = Vector3.zero;
-        yAxisLocation = transform.position.y;
-        //target.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
     void Update()
@@ -78,15 +75,10 @@ public class EnemyScript : MonoBehaviour
         }
         else if (isBeingKnockback)
         {
-            transform.position += (gameObjectForward.transform.forward) * knockback * Time.deltaTime;
-            transform.Rotate(0, 90, 0);
-            //check from where the projectile come from and go backward with transform.position
+            knockBackAngle = gameObjectForward.transform.forward;
 
-            //Debug.Log(mainCharacter.transform.position);
-            //Debug.Log(-mainCharacter.transform.position);
-            //transform.position = Vector3.MoveTowards(transform.position, -knockbackLocation, knockback * Time.deltaTime);
-
-
+            transform.position += new Vector3(knockBackAngle.x, gameObject.transform.forward.y, knockBackAngle.z) * knockback * Time.deltaTime;
+            target.transform.position += new Vector3(knockBackAngle.x, gameObject.transform.forward.y, knockBackAngle.z) * knockback * Time.deltaTime;
         }
     }
 
@@ -96,8 +88,6 @@ public class EnemyScript : MonoBehaviour
         {
             isAttacking = false;
             Debug.Log("attack");
-            //StartCoroutine("Knockback", knockback);
-            //GetComponent<Rigidbody>().constraints = originalConstraints;    
         }
     }
 
@@ -112,20 +102,6 @@ public class EnemyScript : MonoBehaviour
 
     private IEnumerator Knockback(float knockback)
     {
-        //GetComponent<Rigidbody>().velocity = Vector3.zero;
-        //target.GetComponent<Rigidbody>().velocity = Vector3.zero;
-
-        //Vector3 knockbackVector = mainCharacter.transform.position - transform.position;
-        //knockbackVector = knockbackVector.normalized * knockback;
-
-        //Vector3 targetKnockbackVector = mainCharacter.transform.position - target.transform.position;
-        //targetKnockbackVector = targetKnockbackVector.normalized * knockback;
-
-        //GetComponent<Rigidbody>().AddForce(-knockbackVector, ForceMode.Impulse);
-        //target.GetComponent<Rigidbody>().AddForce(-targetKnockbackVector, ForceMode.Impulse);
-
-        //yield return new WaitForSeconds(timeOfKnockback);
-
         yield return new WaitForSeconds(timeOfKnockback);
         isBeingKnockback = false;
     }

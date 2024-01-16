@@ -232,8 +232,8 @@ MonoBehaviour:
   radiusFromPoint: 1
   angleFromPoint: 0
   isBeingKnockback: 0
-  knockback: 3
-  timeOfKnockback: 1
+  knockback: 6
+  timeOfKnockback: 0.3
   speedToAttack: 3
   mainCharacter: {fileID: 1424336406}
   targetMask:
@@ -242,7 +242,7 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 16384
-  radiusFromPlayer: 2.5
+  radiusFromPlayer: 3
   canSeePlayer: 0
   angleFromPlayer: 94
 --- !u!1001 &502888267
