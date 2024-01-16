@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 startVelocity;
     private Quaternion rotate;
 
-    private bool isDash, throwDuck = false;
+    private bool isDash, throwDuck;
 
     private Duck_Collection duckCollection;
 
@@ -46,10 +47,15 @@ public class CharacterMovement : MonoBehaviour
         //    trajectory projectile
         //    Duck_Collection.instance.SeeShootDuck();
         //}
-        if (Input.GetMouseButtonUp(1))
+        if (Input.GetMouseButtonDown(1))
         {
             throwDuck = true;
         }
+
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    //hurt enemy if collision
+        //}
     }
 
     private void FixedUpdate()
@@ -119,6 +125,25 @@ public class CharacterMovement : MonoBehaviour
         else
         {
             animator.SetBool("Move", false);
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.SetTrigger("Attack");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var currentAnimLayer = animator.GetCurrentAnimatorClipInfo(0);
+        var curentAnimName = currentAnimLayer[0].clip.name;
+
+        if (other.gameObject.tag == "Enemy")
+        {
+            if (curentAnimName == "attack")
+            {
+                other.gameObject.GetComponent<EnemyScript>().SetLife(1f);
+            }            
         }
     }
 }
