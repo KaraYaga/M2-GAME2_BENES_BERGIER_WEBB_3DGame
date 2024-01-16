@@ -1,12 +1,12 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(EnemyScript))]
+[CustomEditor(typeof(EnemyAttack))]
 public class FieldOfViewEditor : Editor
 {
     private void OnSceneGUI()
     {
-        EnemyScript fov = (EnemyScript)target;
+        EnemyAttack fov = (EnemyAttack)target;
         Handles.color = Color.red;
         Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.radiusFromPlayer);
 

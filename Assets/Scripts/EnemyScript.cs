@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.Windows;
 
 public class EnemyScript : MonoBehaviour
@@ -13,25 +14,27 @@ public class EnemyScript : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private Transform target;
-    [SerializeField] float speed = 2f, radiusFromPoint = 1f, angleFromPoint = 0f;
+    [SerializeField] float speedToTurn = 2f, radiusFromPoint = 1f, angleFromPoint = 0f;
 
-    [Header("FieldOfView")]
-    public GameObject mainCharacter;
-    public LayerMask targetMask;
-    public LayerMask obstructionMask;
-    public float radiusFromPlayer;
-    public bool canSeePlayer;
-    [Range(0, 360)]
-    public float angleFromPlayer;
 
     [Header("Knockback")]
-    [SerializeField] float timeOfKnockback;
+    [SerializeField] bool isBeingKnockback;
+    [SerializeField] float timeOfKnockback, knockback;
+
+
+
+
+    [Header("Attack")]
+    [SerializeField] private GameObject mainCharacter;
+    [SerializeField] private float speedToAttack, knockbackOfAttack;
+    public bool isAttacking;
+    public RigidbodyConstraints originalConstraints;
 
 
     private void Start()
     {
         animator = Enemy.GetComponent<Animator>();
-        StartCoroutine(FOVRoutine());
+        originalConstraints = GetComponent<Rigidbody>().constraints;
     }
 
     void Update()
@@ -46,22 +49,50 @@ public class EnemyScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!canSeePlayer)
+        target.transform.rotation = transform.rotation;
+
+        if (!isAttacking && !isBeingKnockback)
         {
             float x = target.position.x + Mathf.Cos(angleFromPoint) * radiusFromPoint;
             float y = target.position.y;
             float z = target.position.z + Mathf.Sin(angleFromPoint) * radiusFromPoint;
 
-            transform.position = new Vector3(x, y * transform.right.y, z);
-            angleFromPoint += speed * Time.deltaTime;
+            transform.position = new Vector3(x, y, z);
+            angleFromPoint += speedToTurn * Time.deltaTime;
 
             //Rotation
-            transform.LookAt(target.position);
+            transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
             transform.Rotate(new Vector3(0, 90, 0), Space.World);
         }
-        else
+        else if(!isBeingKnockback)
         {
-            //dash on character
+            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            transform.LookAt(mainCharacter.transform.position);
+            transform.position = Vector3.MoveTowards(transform.position, mainCharacter.transform.position, speedToAttack * Time.deltaTime);
+            target.position += target.transform.forward * speedToAttack * Time.deltaTime;
+        }
+        else if(isBeingKnockback)
+        {
+            //check from where the projectile come from and go backward with transform.position
+            Vector3 knockbackVector = mainCharacter.transform.position - transform.position;
+            knockbackVector = knockbackVector.normalized * knockback;
+
+            Vector3 targetKnockbackVector = mainCharacter.transform.position - target.transform.position;
+            targetKnockbackVector = targetKnockbackVector.normalized * knockback;
+
+            //target.GetComponent<Rigidbody>().AddForce(-targetKnockbackVector, ForceMode.Impulse);
+            //GetComponent<Rigidbody>().AddForce(-knockbackVector, ForceMode.Impulse);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            isAttacking = false;
+            Debug.Log("attack");
+            //StartCoroutine("Knockback", knockback);
+            //GetComponent<Rigidbody>().constraints = originalConstraints;    
         }
     }
 
@@ -69,65 +100,18 @@ public class EnemyScript : MonoBehaviour
     {
         life -= damage;
         Debug.Log(life);
-
+        isBeingKnockback = true;
         StartCoroutine("Knockback", knockback);
     }
 
     private IEnumerator Knockback(float knockback)
     {
-        Vector3 knockbackVector = mainCharacter.transform.position - transform.position;
-        knockbackVector = knockbackVector.normalized * knockback;
-        target.GetComponent<Rigidbody>().AddForce(-knockbackVector, ForceMode.Impulse);
-        GetComponent<Rigidbody>().AddForce(-knockbackVector, ForceMode.Impulse);
-
-
         yield return new WaitForSeconds(timeOfKnockback);
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         target.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         yield return new WaitForSeconds(timeOfKnockback);
-    }
-
-    private IEnumerator FOVRoutine()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(0.2f);
-            FieldOfViewCheck();
-        }
-    }
-
-    private void FieldOfViewCheck()
-    {
-        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radiusFromPlayer, targetMask);
-
-        if (rangeChecks.Length != 0)
-        {
-            Transform target = rangeChecks[0].transform;
-            Vector3 directionToTarget = (target.position - transform.position).normalized;
-
-            if (Vector3.Angle(transform.forward, directionToTarget) < angleFromPlayer / 2)
-            {
-                float distanceToTarget = Vector3.Distance(transform.position, target.position);
-
-                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
-                {
-                    canSeePlayer = true;
-                }
-                else
-                {
-                    canSeePlayer = false;
-                }
-            }
-            else
-            {
-                canSeePlayer = false;
-            }
-        }
-        else if(canSeePlayer)
-        {
-            canSeePlayer = false;
-        }
+        isBeingKnockback = false;
     }
 
     private void Die()
