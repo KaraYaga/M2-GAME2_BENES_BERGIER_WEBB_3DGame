@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyAttack : EnemyScript
 {
     [Header("FieldOfView")]
     [SerializeField] LayerMask targetMask;
     [SerializeField] LayerMask obstructionMask;
-    public GameObject mainCharacter;
     public float radiusFromPlayer;
     public bool canSeePlayer;
 
@@ -18,11 +17,11 @@ public class EnemyAttack : MonoBehaviour
     {
         if (canSeePlayer)
         {
-            GetComponent<EnemyScript>().isAttacking = true;
+            isAttacking = true;
         }
         else
         {
-            GetComponent<EnemyScript>().isAttacking = false;
+            isAttacking = false;
         }
     }
 

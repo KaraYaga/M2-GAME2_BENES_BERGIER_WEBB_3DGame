@@ -139,7 +139,6 @@ GameObject:
   - component: {fileID: 438771632}
   - component: {fileID: 438771634}
   - component: {fileID: 438771631}
-  - component: {fileID: 438771633}
   - component: {fileID: 438771635}
   m_Layer: 11
   m_Name: Ghost
@@ -187,32 +186,6 @@ Transform:
   - {fileID: 141328331}
   m_Father: {fileID: 1957435666}
   m_LocalEulerAnglesHint: {x: 0, y: -379.2, z: 0}
---- !u!114 &438771633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 438771630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2523f31a4ff0bcd4a875f59b8f829782, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  life: 5
-  Enemy: {fileID: 1223349973}
-  target: {fileID: 2020582710}
-  speedToTurn: 2
-  radiusFromPoint: 1
-  angleFromPoint: 0
-  isBeingKnockback: 0
-  timeOfKnockback: 0.1
-  knockback: 0
-  mainCharacter: {fileID: 1424336406}
-  speedToAttack: 2
-  knockbackOfAttack: 15
-  isAttacking: 0
-  originalConstraints: 0
 --- !u!54 &438771634
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -238,7 +211,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &438771635
 MonoBehaviour:
@@ -252,13 +225,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 167c8f040bf44284a8ee982a436092dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  life: 5
+  Enemy: {fileID: 1223349973}
+  target: {fileID: 2020582710}
+  speedToTurn: 2
+  radiusFromPoint: 1
+  angleFromPoint: 0
+  isBeingKnockback: 0
+  knockback: 3
+  timeOfKnockback: 1
+  speedToAttack: 3
+  mainCharacter: {fileID: 1424336406}
   targetMask:
     serializedVersion: 2
     m_Bits: 8192
   obstructionMask:
     serializedVersion: 2
     m_Bits: 16384
-  mainCharacter: {fileID: 1424336406}
   radiusFromPlayer: 2.5
   canSeePlayer: 0
   angleFromPlayer: 94
@@ -1179,6 +1162,10 @@ PrefabInstance:
       propertyPath: enemy
       value: 
       objectReference: {fileID: 438771632}
+    - target: {fileID: 5751996636989993601, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
+      propertyPath: upForce
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

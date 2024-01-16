@@ -7,7 +7,6 @@ public class Duck_Collection : MonoBehaviour
 {
     public static Duck_Collection instance;
     [Header("Duck Collection")]
-    [SerializeField] private Transform enemy; //ENLEVE MOI
     [SerializeField] private int maxDucks = 15;
     [SerializeField] private int currentDucks;
     [SerializeField] private float collectionRange = 1;

@@ -19,22 +19,24 @@ public class EnemyScript : MonoBehaviour
 
     [Header("Knockback")]
     [SerializeField] bool isBeingKnockback;
-    [SerializeField] float timeOfKnockback, knockback;
-
-
-
+    [SerializeField] float knockback, timeOfKnockback;
+    private Vector3 knockbackLocation;
+    private float yAxisLocation;
+    private GameObject gameObjectForward;
 
     [Header("Attack")]
-    [SerializeField] private GameObject mainCharacter;
-    [SerializeField] private float speedToAttack, knockbackOfAttack;
-    public bool isAttacking;
-    public RigidbodyConstraints originalConstraints;
+    [SerializeField] private float speedToAttack; //knockbackOfAttack;
+    protected bool isAttacking;
+    public GameObject mainCharacter;
+    //private RigidbodyConstraints originalConstraints;
 
 
     private void Start()
     {
         animator = Enemy.GetComponent<Animator>();
-        originalConstraints = GetComponent<Rigidbody>().constraints;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        yAxisLocation = transform.position.y;
+        //target.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
     void Update()
@@ -63,25 +65,28 @@ public class EnemyScript : MonoBehaviour
             //Rotation
             transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
             transform.Rotate(new Vector3(0, 90, 0), Space.World);
+
+            knockbackLocation = mainCharacter.transform.position;
         }
         else if(!isBeingKnockback)
         {
-            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             transform.LookAt(mainCharacter.transform.position);
             transform.position = Vector3.MoveTowards(transform.position, mainCharacter.transform.position, speedToAttack * Time.deltaTime);
             target.position += target.transform.forward * speedToAttack * Time.deltaTime;
+
+            knockbackLocation = mainCharacter.transform.position;
         }
-        else if(isBeingKnockback)
+        else if (isBeingKnockback)
         {
+            transform.position += (gameObjectForward.transform.forward) * knockback * Time.deltaTime;
+            transform.Rotate(0, 90, 0);
             //check from where the projectile come from and go backward with transform.position
-            Vector3 knockbackVector = mainCharacter.transform.position - transform.position;
-            knockbackVector = knockbackVector.normalized * knockback;
 
-            Vector3 targetKnockbackVector = mainCharacter.transform.position - target.transform.position;
-            targetKnockbackVector = targetKnockbackVector.normalized * knockback;
+            //Debug.Log(mainCharacter.transform.position);
+            //Debug.Log(-mainCharacter.transform.position);
+            //transform.position = Vector3.MoveTowards(transform.position, -knockbackLocation, knockback * Time.deltaTime);
 
-            //target.GetComponent<Rigidbody>().AddForce(-targetKnockbackVector, ForceMode.Impulse);
-            //GetComponent<Rigidbody>().AddForce(-knockbackVector, ForceMode.Impulse);
+
         }
     }
 
@@ -96,19 +101,30 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    public void SetLife(float damage, float knockback)
+    public void SetLife(float damage, float knockback, GameObject gameObjectDirection)
     {
         life -= damage;
         Debug.Log(life);
         isBeingKnockback = true;
+        gameObjectForward = gameObjectDirection;
         StartCoroutine("Knockback", knockback);
     }
 
     private IEnumerator Knockback(float knockback)
     {
-        yield return new WaitForSeconds(timeOfKnockback);
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        target.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //target.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+        //Vector3 knockbackVector = mainCharacter.transform.position - transform.position;
+        //knockbackVector = knockbackVector.normalized * knockback;
+
+        //Vector3 targetKnockbackVector = mainCharacter.transform.position - target.transform.position;
+        //targetKnockbackVector = targetKnockbackVector.normalized * knockback;
+
+        //GetComponent<Rigidbody>().AddForce(-knockbackVector, ForceMode.Impulse);
+        //target.GetComponent<Rigidbody>().AddForce(-targetKnockbackVector, ForceMode.Impulse);
+
+        //yield return new WaitForSeconds(timeOfKnockback);
 
         yield return new WaitForSeconds(timeOfKnockback);
         isBeingKnockback = false;
