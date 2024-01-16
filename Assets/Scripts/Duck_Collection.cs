@@ -2,13 +2,11 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEngine.SceneManagement;
 
 public class Duck_Collection : MonoBehaviour
 {
     public static Duck_Collection instance;
     [Header("Duck Collection")]
-    [SerializeField] private Transform enemy; //ENLEVE MOI
     [SerializeField] private int maxDucks = 15;
     [SerializeField] private int currentDucks;
     [SerializeField] private float collectionRange = 1;
@@ -40,7 +38,7 @@ public class Duck_Collection : MonoBehaviour
         }
     }
 
-// Detecting when ducks are in range
+    // Detecting when ducks are in range
     public void CollectDuckInRange()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, collectionRange);
@@ -75,7 +73,6 @@ public class Duck_Collection : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("GameWin");
             Debug.Log("You have collected all your ducks!");
         }
     }
@@ -85,7 +82,8 @@ public class Duck_Collection : MonoBehaviour
         //trajectory projectile
     //}
 
-// Throw them ducks
+
+    // Throw them ducks
     public void ThrowDuck()
     {
         if (currentDucks > 0)
@@ -130,12 +128,5 @@ public class Duck_Collection : MonoBehaviour
         {
             duckCountText.text = "Ducks: " + currentDucks.ToString();
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (!enemy) return;
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, enemy.position);
     }
 }

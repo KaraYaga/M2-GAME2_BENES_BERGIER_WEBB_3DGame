@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -16,13 +15,13 @@ public class CharacterMovement : MonoBehaviour
 
     private bool isDash, throwDuck;
 
-    private Duck_Collection duckCollection;
+    //private Duck_Collection duckCollection;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = playerAvatar.GetComponent<Animator>();
-        duckCollection = GetComponent<Duck_Collection>();
+        //duckCollection = GetComponent<Duck_Collection>();
         startVelocity = rb.velocity;
     }
 
@@ -137,7 +136,7 @@ public class CharacterMovement : MonoBehaviour
         {
             if (curentAnimName == "attack")
             {
-                other.gameObject.GetComponent<EnemyScript>().SetLife(1f, enemyKnockback);
+                other.gameObject.GetComponent<EnemyScript>().SetLife(1f, enemyKnockback, gameObject);
             }            
         }
     }
