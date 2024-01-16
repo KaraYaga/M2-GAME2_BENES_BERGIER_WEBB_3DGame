@@ -8,7 +8,7 @@ using UnityEngine.Windows;
 public class EnemyScript : MonoBehaviour
 {
     [SerializeField] float life = 5f;
-    //[SerializeField] GameObject mainCharacter;
+    [SerializeField] GameObject mainCharacter;
     [SerializeField] GameObject Enemy;
     private Animator animator;
 
@@ -17,9 +17,8 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] float speed = 2f, radius = 1f, angle = 0f;
 
     [Header("Knockback")]
-    [SerializeField] float knockback;
+    //[SerializeField] float knockback;
     [SerializeField] float timeOfKnockback;
-    private bool isKnockback;
 
 
     private void Start()
@@ -48,20 +47,17 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-    public void SetLife(float damage, GameObject attacker)
+    public void SetLife(float damage, float knockback)
     {
         life -= damage;
         Debug.Log(life);
 
-        if (!isKnockback)
-        {
-            StartCoroutine("Knockback", attacker);
-        }
+        StartCoroutine("Knockback", knockback);
     }
 
-    IEnumerator Knockback(GameObject attacker)
+    IEnumerator Knockback(float knockback)
     {
-        Vector3 knockbackVector = attacker.transform.position - transform.position;
+        Vector3 knockbackVector = mainCharacter.transform.position - transform.position;
         knockbackVector = knockbackVector.normalized * knockback;
         target.GetComponent<Rigidbody>().AddForce(-knockbackVector, ForceMode.Impulse);
         GetComponent<Rigidbody>().AddForce(-knockbackVector, ForceMode.Impulse);
@@ -72,7 +68,6 @@ public class EnemyScript : MonoBehaviour
         target.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         yield return new WaitForSeconds(timeOfKnockback);
-        isKnockback = false;
     }
 
     private void Die()
