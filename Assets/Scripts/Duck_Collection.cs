@@ -83,6 +83,7 @@ public class Duck_Collection : MonoBehaviour
         //trajectory projectile
     //}
 
+
     // Throw them ducks
     public void ThrowDuck()
     {
@@ -128,12 +129,5 @@ public class Duck_Collection : MonoBehaviour
         {
             duckCountText.text = "Ducks: " + currentDucks.ToString();
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (!enemy) return;
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, enemy.position);
     }
 }
