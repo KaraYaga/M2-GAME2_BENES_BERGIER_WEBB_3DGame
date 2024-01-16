@@ -40,5 +40,5 @@ Material:
     - _DistTiling: {r: 0.05, g: 0.05, b: 0, a: 0}
     - _MoveDirection: {r: 0.7, g: 0.6, b: 0, a: 0}
     - _Tiling: {r: 0.12, g: 0.12, b: 0, a: 0}
-    - _WaterColor: {r: 0, g: 0.60941625, b: 0.9056604, a: 1}
+    - _WaterColor: {r: 0, g: 0.5254023, b: 0.7830189, a: 1}
   m_BuildTextureStacks: []

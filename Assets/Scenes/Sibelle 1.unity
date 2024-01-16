@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2121949420}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3427,6 +3427,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1878528700052063198, guid: bc78c7ec5924f9849a1ac512e4181b9f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce3fefe1a44f6b64ba30c092b520a17f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10050,6 +10054,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 45009648}
     m_Modifications:
+    - target: {fileID: 7608120099834836805, guid: e519c410b01abf0478e3344b27e06822, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2806ce35c0a6c93499cc6de04055d9d4, type: 2}
     - target: {fileID: 8256651296892098192, guid: e519c410b01abf0478e3344b27e06822, type: 3}
       propertyPath: m_Name
       value: Nature_Detail_Edge
@@ -12041,11 +12049,15 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: b690919169dac9349ac86dd59893d16d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7f7d615eed447f241935f5968120dc3c, type: 2}
+      objectReference: {fileID: 2100000, guid: a818442fa7c7e364db174e2890590bc5, type: 2}
     - target: {fileID: 2300002, guid: b690919169dac9349ac86dd59893d16d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 480bf10cdc96eb64c99ead29a04af198, type: 2}
+      objectReference: {fileID: 2100000, guid: a818442fa7c7e364db174e2890590bc5, type: 2}
+    - target: {fileID: 2300004, guid: b690919169dac9349ac86dd59893d16d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a818442fa7c7e364db174e2890590bc5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16358,6 +16370,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 45009648}
     m_Modifications:
+    - target: {fileID: 7608120099834836805, guid: e519c410b01abf0478e3344b27e06822, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce3fefe1a44f6b64ba30c092b520a17f, type: 2}
     - target: {fileID: 8256651296892098192, guid: e519c410b01abf0478e3344b27e06822, type: 3}
       propertyPath: m_Name
       value: Nature_Detail_Edge
@@ -23685,6 +23701,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 45009648}
     m_Modifications:
+    - target: {fileID: 7608120099834836805, guid: e519c410b01abf0478e3344b27e06822, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2806ce35c0a6c93499cc6de04055d9d4, type: 2}
     - target: {fileID: 8256651296892098192, guid: e519c410b01abf0478e3344b27e06822, type: 3}
       propertyPath: m_Name
       value: Nature_Detail_Edge
@@ -35360,6 +35380,7 @@ MonoBehaviour:
   turnSpeed: 360
   dashSpeed: 4
   dashTime: 0.15
+  enemyKnockback: 15
   playerAvatar: {fileID: 807140630}
 --- !u!4 &1235131711 stripped
 Transform:
@@ -42224,6 +42245,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 45009648}
     m_Modifications:
+    - target: {fileID: 7608120099834836805, guid: e519c410b01abf0478e3344b27e06822, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2806ce35c0a6c93499cc6de04055d9d4, type: 2}
     - target: {fileID: 8256651296892098192, guid: e519c410b01abf0478e3344b27e06822, type: 3}
       propertyPath: m_Name
       value: Nature_Detail_Edge
@@ -53263,6 +53288,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5875433307025127579, guid: 9d9016a93e2afb14993f9ab42254fc2b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2806ce35c0a6c93499cc6de04055d9d4, type: 2}
+    - target: {fileID: 9167310609142786150, guid: 9d9016a93e2afb14993f9ab42254fc2b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2806ce35c0a6c93499cc6de04055d9d4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
