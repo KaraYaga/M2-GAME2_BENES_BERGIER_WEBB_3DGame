@@ -41,7 +41,6 @@ public class CharacterMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = playerAvatar.GetComponent<Animator>();
         oldColor = meshRenderer.GetComponent<Renderer>().material.color;
-        //newColor = new Color(oldColor.r, oldColor.g, oldColor.b, newAlpha);
         startVelocity = rb.velocity;
     }
 
@@ -191,7 +190,7 @@ public class CharacterMovement : MonoBehaviour
             animator.SetBool("Move", false);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetTrigger("Attack");
         }

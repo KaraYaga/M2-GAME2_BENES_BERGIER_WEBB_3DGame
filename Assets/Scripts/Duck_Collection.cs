@@ -77,12 +77,6 @@ public class Duck_Collection : MonoBehaviour
         }
     }
 
-    //public void SeeShootDuck()
-    //{
-        //trajectory projectile
-    //}
-
-
     // Throw them ducks
     public void ThrowDuck()
     {
@@ -106,7 +100,7 @@ public class Duck_Collection : MonoBehaviour
 
                 Vector3 throwDirection = (duckPrefab.transform.forward * throwForce * distance) + new Vector3(0, upForce, 0);
                 duckPrefab.GetComponent<Rigidbody>().AddForce(throwDirection, ForceMode.VelocityChange);
-                //currentDucks--;
+                currentDucks--;
 
                 UpdateDuckCountText();
             }
