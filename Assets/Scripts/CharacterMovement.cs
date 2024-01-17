@@ -5,16 +5,21 @@ using static UnityEngine.GraphicsBuffer;
 
 public class CharacterMovement : MonoBehaviour
 {
-    [SerializeField] private float health = 15, speed = 5f, turnSpeed = 360f, dashSpeed = 150f, dashTime, enemyKnockback = 15f;
+    [Header("Attributes")]
     [SerializeField] GameObject playerAvatar;
+    [SerializeField] private float enemyKnockback = 15f, health = 15;
     private Rigidbody rb;
     private Animator animator;
+    private bool throwDuck;
+
+    [Header("Movement")]
+    [SerializeField] private float dashTime;
+    [SerializeField] private float speed = 5f, turnSpeed = 360f, dashSpeed = 150f;
     private Vector3 input;
     private Vector3 relative;
     private Vector3 startVelocity;
     private Quaternion rotate;
-
-    private bool isDash, throwDuck;
+    private bool isDash;
 
     [Header("Knockback")]
     [SerializeField] float knockback;

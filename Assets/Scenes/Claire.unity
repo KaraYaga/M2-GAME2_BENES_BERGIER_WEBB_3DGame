@@ -303,11 +303,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1116037551 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7146921095036166713, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
-  m_PrefabInstance: {fileID: 1980118451952636887}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1314855319
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,14 +662,6 @@ PrefabInstance:
     - target: {fileID: 3502170476156479086, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
       propertyPath: m_Name
       value: Character
-      objectReference: {fileID: 0}
-    - target: {fileID: 4132234950028255148, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
-      propertyPath: meshRenderer
-      value: 
-      objectReference: {fileID: 1116037551}
-    - target: {fileID: 4132234950028255148, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
-      propertyPath: timeOfInvincibility
-      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5751996636989993601, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
       propertyPath: enemy
