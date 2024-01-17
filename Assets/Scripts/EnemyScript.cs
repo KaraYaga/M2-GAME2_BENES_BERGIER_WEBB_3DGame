@@ -9,9 +9,10 @@ using UnityEngine.Windows;
 public class EnemyScript : MonoBehaviour
 {
     [SerializeField] float life = 5f;
-    [SerializeField] GameObject Enemy;
+    //[SerializeField] GameObject Enemy;
+    [SerializeField] protected Animator animator;
     [SerializeField] ParticleSystem particleGhostDeath;
-    private Animator animator;
+    //private Animator animator;
 
     [Header("Movement")]
     [SerializeField] private Transform target;
@@ -33,7 +34,7 @@ public class EnemyScript : MonoBehaviour
 
     private void Start()
     {
-        animator = Enemy.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
@@ -56,6 +57,8 @@ public class EnemyScript : MonoBehaviour
 
         if (!isAttacking && !isBeingKnockback)
         {
+            animator.SetBool("Attacking", false);
+
             float x = target.position.x + Mathf.Cos(angleFromPoint) * radiusFromPoint;
             float y = target.position.y;
             float z = target.position.z + Mathf.Sin(angleFromPoint) * radiusFromPoint;
@@ -71,6 +74,8 @@ public class EnemyScript : MonoBehaviour
         }
         else if(!isBeingKnockback)
         {
+            animator.SetBool("Attacking", true);
+            
             transform.LookAt(mainCharacter.transform.position);
             transform.position = Vector3.MoveTowards(transform.position, mainCharacter.transform.position, speedToAttack * Time.deltaTime);
             target.position += target.transform.forward * speedToAttack * Time.deltaTime;

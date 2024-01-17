@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 5
-  Enemy: {fileID: 5899533224235363024}
+  animator: {fileID: 5561289738143157047}
+  particleGhostDeath: {fileID: 0}
   target: {fileID: 3899219372879546022}
   speedToTurn: 2
   radiusFromPoint: 1
@@ -486,9 +487,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ee08d04ad5df46fbb2e97260b63420b, type: 3}
---- !u!1 &5899533224235363024 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 19588385245968726, guid: 8ee08d04ad5df46fbb2e97260b63420b, type: 3}
+--- !u!95 &5561289738143157047 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2069234913439815857, guid: 8ee08d04ad5df46fbb2e97260b63420b, type: 3}
   m_PrefabInstance: {fileID: 5880238477322670982}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6526994150801911914 stripped
