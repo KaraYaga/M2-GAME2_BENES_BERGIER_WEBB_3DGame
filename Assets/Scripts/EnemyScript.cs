@@ -10,6 +10,7 @@ public class EnemyScript : MonoBehaviour
 {
     [SerializeField] float life = 5f;
     [SerializeField] GameObject Enemy;
+    [SerializeField] ParticleSystem particleGhostDeath;
     private Animator animator;
 
     [Header("Movement")]
@@ -38,10 +39,13 @@ public class EnemyScript : MonoBehaviour
 
     void Update()
     {
-        //Die
         if (life <= 0)
         {
-            Die();
+            //Die();
+        }
+        if (gameObject == null)
+        {
+            Instantiate(particleGhostDeath);
         }
     }
 
@@ -87,6 +91,7 @@ public class EnemyScript : MonoBehaviour
         if (collision.transform.CompareTag("Player"))
         {
             isAttacking = false;
+            collision.gameObject.GetComponent<CharacterMovement>().SetLife(1, gameObject);
             Debug.Log("attack");
         }
     }
@@ -108,7 +113,7 @@ public class EnemyScript : MonoBehaviour
 
     private void Die()
     {
-        //die
+        Destroy(gameObject);
     }
 
 

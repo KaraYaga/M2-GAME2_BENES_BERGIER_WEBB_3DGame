@@ -303,6 +303,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1116037551 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7146921095036166713, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
+  m_PrefabInstance: {fileID: 1980118451952636887}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1314855319
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1420770847
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -664,17 +669,17 @@ PrefabInstance:
       value: Character
       objectReference: {fileID: 0}
     - target: {fileID: 4132234950028255148, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
-      propertyPath: enemyKnockback
-      value: 15
+      propertyPath: meshRenderer
+      value: 
+      objectReference: {fileID: 1116037551}
+    - target: {fileID: 4132234950028255148, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
+      propertyPath: timeOfInvincibility
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5751996636989993601, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
       propertyPath: enemy
       value: 
       objectReference: {fileID: 438771632}
-    - target: {fileID: 5751996636989993601, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
-      propertyPath: upForce
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
