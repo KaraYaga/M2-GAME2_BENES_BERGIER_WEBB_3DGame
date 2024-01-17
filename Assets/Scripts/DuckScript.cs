@@ -9,7 +9,7 @@ public class DuckScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<EnemyScript>().SetLife(2f, enemyKnockback);
+            collision.gameObject.GetComponent<EnemyScript>().SetLife(2f, enemyKnockback, gameObject);
             Debug.Log("damage");
         }
     }

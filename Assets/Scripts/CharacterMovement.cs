@@ -1,28 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEngine.GraphicsBuffer;
 
 public class CharacterMovement : MonoBehaviour
 {
-    [SerializeField] private float speed = 5f, turnSpeed = 360f, dashSpeed = 150f, dashTime, enemyKnockback = 15f;
+    [Header("Attributes")]
     [SerializeField] GameObject playerAvatar;
+    [SerializeField] private float enemyKnockback = 15f, health = 15;
     private Rigidbody rb;
     private Animator animator;
+    private bool throwDuck;
+
+    [Header("Movement")]
+    [SerializeField] private float dashTime;
+    [SerializeField] private float speed = 5f, turnSpeed = 360f, dashSpeed = 150f;
     private Vector3 input;
     private Vector3 relative;
     private Vector3 startVelocity;
     private Quaternion rotate;
+    private bool isDash;
 
-    private bool isDash, throwDuck;
+    [Header("Knockback")]
+    [SerializeField] float knockback;
+    [SerializeField] float timeOfKnockback;
+    private bool isBeingKnockback;
+    private Vector3 knockbackLocation;
+    private Vector3 knockBackAngle;
+    private GameObject gameObjectForward;
 
-    private Duck_Collection duckCollection;
+    [Header("Invincibility")]
+    [SerializeField] GameObject meshRenderer;
+    [SerializeField] float timeOfInvincibility;
+    private bool isInvincible;
+    private Color oldColor;
+    //private Color newColor;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = playerAvatar.GetComponent<Animator>();
-        duckCollection = GetComponent<Duck_Collection>();
+        oldColor = meshRenderer.GetComponent<Renderer>().material.color;
         startVelocity = rb.velocity;
     }
 
@@ -31,6 +49,11 @@ public class CharacterMovement : MonoBehaviour
         Animation();
         GatherInput();
         Look();
+
+        if (health <= 0)
+        {
+            Die();
+        }
 
         if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.E)) && !isDash) //Dash
         {
@@ -42,14 +65,14 @@ public class CharacterMovement : MonoBehaviour
             Duck_Collection.instance.CollectDuckInRange();
         }
 
-        //if (Input.GetMouseButtonDown(1)) // Left mouse click to throw duck
-        //{
-        //    trajectory projectile
-        //    Duck_Collection.instance.SeeShootDuck();
-        //}
         if (Input.GetMouseButtonDown(1))
         {
             throwDuck = true;
+        }
+        if (isBeingKnockback)
+        {
+            knockBackAngle = gameObjectForward.transform.forward;
+            transform.position += new Vector3(knockBackAngle.x, gameObject.transform.forward.y, knockBackAngle.z) * knockback * Time.deltaTime;
         }
     }
 
@@ -108,6 +131,51 @@ public class CharacterMovement : MonoBehaviour
         rb.MovePosition(transform.position + (transform.forward * input.normalized.magnitude) * speed * Time.deltaTime);
     }
 
+    public void SetLife(float damage, GameObject gameObjectDirection)
+    {
+        if (!isInvincible)
+        {
+            health -= damage;
+            Debug.Log(health);
+            isInvincible = true;
+            StartCoroutine("Invincibility", timeOfInvincibility);
+        }
+
+        isBeingKnockback = true;
+        gameObjectForward = gameObjectDirection;
+        StartCoroutine("Knockback", knockback);
+    }
+
+    private IEnumerator Knockback(float knockback)
+    {
+        yield return new WaitForSeconds(timeOfKnockback);
+        isBeingKnockback = false;
+    }
+
+    private IEnumerator Invincibility(float invincible)
+    {
+        meshRenderer.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+        yield return new WaitForSeconds(invincible);
+        meshRenderer.GetComponent<Renderer>().material.color = oldColor;
+        yield return new WaitForSeconds(invincible);
+        meshRenderer.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+        yield return new WaitForSeconds(invincible);
+        meshRenderer.GetComponent<Renderer>().material.color = oldColor;
+        yield return new WaitForSeconds(invincible);
+        meshRenderer.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+        yield return new WaitForSeconds(invincible);
+        meshRenderer.GetComponent<Renderer>().material.color = oldColor;
+        yield return new WaitForSeconds(invincible);
+        meshRenderer.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+        yield return new WaitForSeconds(invincible);
+        meshRenderer.GetComponent<Renderer>().material.color = oldColor;
+        yield return new WaitForSeconds(invincible);
+        yield return new WaitForSeconds(invincible);
+
+        isInvincible = false;
+    }
+
+
     private void Animation()
     {
         if (input.sqrMagnitude != 0)
@@ -122,7 +190,7 @@ public class CharacterMovement : MonoBehaviour
             animator.SetBool("Move", false);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetTrigger("Attack");
         }
@@ -137,8 +205,13 @@ public class CharacterMovement : MonoBehaviour
         {
             if (curentAnimName == "attack")
             {
-                other.gameObject.GetComponent<EnemyScript>().SetLife(1f, enemyKnockback);
+                other.gameObject.GetComponent<EnemyScript>().SetLife(1f, enemyKnockback, gameObject);
             }            
         }
+    }
+
+    private void Die()
+    {
+        //
     }
 }

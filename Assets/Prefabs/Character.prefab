@@ -182,12 +182,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca97c6fefab4cb46a20cef26156679d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 15
   speed: 3.5
   turnSpeed: 500
   dashSpeed: 4
   dashTime: 0.15
   enemyKnockback: 15
   playerAvatar: {fileID: 3971298567138250804}
+  knockback: 11
+  timeOfKnockback: 0.1
+  meshRenderer: {fileID: 7146921095036166713}
+  timeOfInvincibility: 0.2
 --- !u!114 &5751996636989993601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,7 +205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 313ddf12e0b9f3c42b8e946df9c027af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
   maxDucks: 15
   currentDucks: 0
   collectionRange: 1
@@ -389,5 +393,10 @@ GameObject:
 --- !u!4 &4313756645511917095 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 466174982370493814, guid: 7577e3de9babd604d9880ded032d1752, type: 3}
+  m_PrefabInstance: {fileID: 4442138565445020497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7146921095036166713 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6812630824480508264, guid: 7577e3de9babd604d9880ded032d1752, type: 3}
   m_PrefabInstance: {fileID: 4442138565445020497}
   m_PrefabAsset: {fileID: 0}

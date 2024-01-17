@@ -3,83 +3,122 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.Windows;
 
 public class EnemyScript : MonoBehaviour
 {
     [SerializeField] float life = 5f;
-    [SerializeField] GameObject mainCharacter;
-    [SerializeField] GameObject Enemy;
-    private Animator animator;
+    //[SerializeField] GameObject Enemy;
+    [SerializeField] protected Animator animator;
+    [SerializeField] ParticleSystem particleGhostDeath;
+    //private Animator animator;
 
     [Header("Movement")]
     [SerializeField] private Transform target;
-    [SerializeField] float speed = 2f, radius = 1f, angle = 0f;
-    private bool EnemyInRange;
+    [SerializeField] float speedToTurn = 2f, radiusFromPoint = 1f, angleFromPoint = 0f;
+
 
     [Header("Knockback")]
-    [SerializeField] float timeOfKnockback;
+    [SerializeField] bool isBeingKnockback;
+    [SerializeField] float knockback, timeOfKnockback;
+    private Vector3 knockbackLocation;
+    private Vector3 knockBackAngle;
+    private GameObject gameObjectForward;
+
+    [Header("Attack")]
+    [SerializeField] private float speedToAttack; //knockbackOfAttack;
+    protected bool isAttacking;
+    public GameObject mainCharacter;
 
 
     private void Start()
     {
-        animator = Enemy.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
     void Update()
     {
-        if(!EnemyInRange)
-        {
-            float x = target.position.x + Mathf.Cos(angle) * radius;
-            float y = target.position.y;
-            float z = target.position.z + Mathf.Sin(angle) * radius;
-
-            transform.position = new Vector3(x, y * transform.right.y, z);
-            angle += speed * Time.deltaTime;
-
-            //Rotation
-            transform.LookAt(target.position);
-            transform.Rotate(new Vector3(0, 90, 0), Space.World);
-        }
-        else
-        {
-            //dash on character
-        }
-        
-
-        //Die
         if (life <= 0)
         {
-            Die();
+            //Die();
+        }
+        if (gameObject == null)
+        {
+            Instantiate(particleGhostDeath);
         }
     }
 
-    public void SetLife(float damage, float knockback)
+
+    private void FixedUpdate()
+    {
+        target.transform.rotation = transform.rotation;
+
+        if (!isAttacking && !isBeingKnockback)
+        {
+            animator.SetBool("Attacking", false);
+
+            float x = target.position.x + Mathf.Cos(angleFromPoint) * radiusFromPoint;
+            float y = target.position.y;
+            float z = target.position.z + Mathf.Sin(angleFromPoint) * radiusFromPoint;
+
+            transform.position = new Vector3(x, y, z);
+            angleFromPoint += speedToTurn * Time.deltaTime;
+
+            //Rotation
+            transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+            transform.Rotate(new Vector3(0, 90, 0), Space.World);
+
+            knockbackLocation = mainCharacter.transform.position;
+        }
+        else if(!isBeingKnockback)
+        {
+            animator.SetBool("Attacking", true);
+            
+            transform.LookAt(mainCharacter.transform.position);
+            transform.position = Vector3.MoveTowards(transform.position, mainCharacter.transform.position, speedToAttack * Time.deltaTime);
+            target.position += target.transform.forward * speedToAttack * Time.deltaTime;
+
+            knockbackLocation = mainCharacter.transform.position;
+        }
+        else if (isBeingKnockback)
+        {
+            knockBackAngle = gameObjectForward.transform.forward;
+
+            transform.position += new Vector3(knockBackAngle.x, gameObject.transform.forward.y, knockBackAngle.z) * knockback * Time.deltaTime;
+            target.transform.position += new Vector3(knockBackAngle.x, gameObject.transform.forward.y, knockBackAngle.z) * knockback * Time.deltaTime;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            isAttacking = false;
+            collision.gameObject.GetComponent<CharacterMovement>().SetLife(1, gameObject);
+            Debug.Log("attack");
+        }
+    }
+
+    public void SetLife(float damage, float knockback, GameObject gameObjectDirection)
     {
         life -= damage;
         Debug.Log(life);
-
+        isBeingKnockback = true;
+        gameObjectForward = gameObjectDirection;
         StartCoroutine("Knockback", knockback);
     }
 
-    IEnumerator Knockback(float knockback)
+    private IEnumerator Knockback(float knockback)
     {
-        Vector3 knockbackVector = mainCharacter.transform.position - transform.position;
-        knockbackVector = knockbackVector.normalized * knockback;
-        target.GetComponent<Rigidbody>().AddForce(-knockbackVector, ForceMode.Impulse);
-        GetComponent<Rigidbody>().AddForce(-knockbackVector, ForceMode.Impulse);
-
-
         yield return new WaitForSeconds(timeOfKnockback);
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        target.GetComponent<Rigidbody>().velocity = Vector3.zero;
-
-        yield return new WaitForSeconds(timeOfKnockback);
+        isBeingKnockback = false;
     }
 
     private void Die()
     {
-        //die
+        Destroy(gameObject);
     }
 
 

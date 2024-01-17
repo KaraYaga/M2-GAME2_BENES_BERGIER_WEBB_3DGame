@@ -7,7 +7,6 @@ public class Duck_Collection : MonoBehaviour
 {
     public static Duck_Collection instance;
     [Header("Duck Collection")]
-    [SerializeField] private Transform enemy; //ENLEVE MOI
     [SerializeField] private int maxDucks = 15;
     [SerializeField] private int currentDucks;
     [SerializeField] private float collectionRange = 1;
@@ -78,11 +77,6 @@ public class Duck_Collection : MonoBehaviour
         }
     }
 
-    //public void SeeShootDuck()
-    //{
-        //trajectory projectile
-    //}
-
     // Throw them ducks
     public void ThrowDuck()
     {
@@ -106,7 +100,7 @@ public class Duck_Collection : MonoBehaviour
 
                 Vector3 throwDirection = (duckPrefab.transform.forward * throwForce * distance) + new Vector3(0, upForce, 0);
                 duckPrefab.GetComponent<Rigidbody>().AddForce(throwDirection, ForceMode.VelocityChange);
-                //currentDucks--;
+                currentDucks--;
 
                 UpdateDuckCountText();
             }
@@ -128,12 +122,5 @@ public class Duck_Collection : MonoBehaviour
         {
             duckCountText.text = "Ducks: " + currentDucks.ToString();
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (!enemy) return;
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, enemy.position);
     }
 }
