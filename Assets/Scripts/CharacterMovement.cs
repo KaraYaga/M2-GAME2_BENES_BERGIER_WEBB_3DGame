@@ -8,6 +8,7 @@ public class CharacterMovement : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] GameObject playerAvatar;
     [SerializeField] private float enemyKnockback = 15f, health = 15;
+    [SerializeField] ParticleSystem particleHit;
     private Rigidbody rb;
     private Animator animator;
     private bool throwDuck;
@@ -34,7 +35,6 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] float timeOfInvincibility;
     private bool isInvincible;
     private Color oldColor;
-    //private Color newColor;
 
     void Start()
     {
@@ -205,6 +205,8 @@ public class CharacterMovement : MonoBehaviour
         {
             if (curentAnimName == "attack")
             {
+                Instantiate(particleHit, other.gameObject.transform.position, Quaternion.Euler(-90, 0, 0));
+
                 other.gameObject.GetComponent<EnemyScript>().SetLife(1f, enemyKnockback, gameObject);
             }            
         }

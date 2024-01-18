@@ -266,9 +266,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1424336406}
     - target: {fileID: 5965605892382175778, guid: 47eccfdaaa8490246bb90d54bab6ccbd, type: 3}
-      propertyPath: enemyKnockback
-      value: 10
-      objectReference: {fileID: 0}
+      propertyPath: particleHit
+      value: 
+      objectReference: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -749,6 +749,10 @@ PrefabInstance:
       value: Character
       objectReference: {fileID: 0}
     - target: {fileID: 4132234950028255148, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
+      propertyPath: particleHit
+      value: 
+      objectReference: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
+    - target: {fileID: 4132234950028255148, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
       propertyPath: enemyKnockback
       value: 50
       objectReference: {fileID: 0}
@@ -769,6 +773,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2654784299456955862, guid: c22370071ee1829418106da19f4485f1, type: 3}
+      propertyPath: particleHit
+      value: 
+      objectReference: {fileID: 8771972552311404798, guid: bbf9e36a48d6c5648a13889afab076fd, type: 3}
     - target: {fileID: 2654784299456955862, guid: c22370071ee1829418106da19f4485f1, type: 3}
       propertyPath: mainCharacter
       value: 

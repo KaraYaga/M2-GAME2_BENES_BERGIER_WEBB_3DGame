@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2359556}
   - component: {fileID: 8924847373829466675}
   - component: {fileID: 2001422080271405552}
+  - component: {fileID: -7277156934122412776}
   m_Layer: 10
   m_Name: GameOverDuck
   m_TagString: Duck
@@ -135,3 +136,17 @@ CapsuleCollider:
   m_Height: 1.7659367
   m_Direction: 1
   m_Center: {x: 0, y: -0.14509289, z: 0.68039525}
+--- !u!114 &-7277156934122412776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 553f7c4bbbc2fe24e979e7efc4b13855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyKnockback: 10
+  particleHit: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}

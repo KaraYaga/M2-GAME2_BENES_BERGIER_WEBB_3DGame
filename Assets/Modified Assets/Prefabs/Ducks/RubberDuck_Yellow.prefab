@@ -148,3 +148,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 553f7c4bbbc2fe24e979e7efc4b13855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyKnockback: 10
+  particleHit: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
