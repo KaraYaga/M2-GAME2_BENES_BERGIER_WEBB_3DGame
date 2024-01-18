@@ -8,7 +8,7 @@ public class CharacterMovement : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] GameObject playerAvatar;
     [SerializeField] private float enemyKnockback = 15f, health = 15;
-    [SerializeField] ParticleSystem particleHit;
+    [SerializeField] ParticleSystem particleHit, particleCharacterDeath;
     private Rigidbody rb;
     private Animator animator;
     private bool throwDuck;
@@ -52,7 +52,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (health <= 0)
         {
-            Die();
+            StartCoroutine(DestroyWithParticles());
         }
 
         if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.E)) && !isDash) //Dash
@@ -218,8 +218,13 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    private void Die()
+    //Death
+    public IEnumerator DestroyWithParticles()
     {
-        //
+        Instantiate(particleCharacterDeath, transform.position, Quaternion.Euler(-90, 0, 0));
+
+        yield return null;
+
+        Destroy(gameObject);
     }
 }

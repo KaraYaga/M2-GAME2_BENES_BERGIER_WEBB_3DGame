@@ -182,13 +182,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca97c6fefab4cb46a20cef26156679d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerAvatar: {fileID: 3971298567138250804}
+  enemyKnockback: 50
   health: 15
+  particleHit: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
+  particleCharacterDeath: {fileID: 5515065002404772068, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+  dashTime: 0.15
   speed: 3.5
   turnSpeed: 500
   dashSpeed: 4
-  dashTime: 0.15
-  enemyKnockback: 15
-  playerAvatar: {fileID: 3971298567138250804}
   knockback: 11
   timeOfKnockback: 0.1
   meshRenderer: {fileID: 7146921095036166713}
