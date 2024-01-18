@@ -29,10 +29,16 @@ public class EnemyScript : MonoBehaviour
     protected bool isAttacking;
     public GameObject mainCharacter;
 
+    [Header("Damage")]
+    [SerializeField] private GameObject meshRenderer;
+    [SerializeField] private float alpha = 1;
+    private Material material;
+
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        material = meshRenderer.GetComponent<Renderer>().material;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
@@ -90,6 +96,14 @@ public class EnemyScript : MonoBehaviour
     {
         life -= damage;
         Debug.Log(life);
+
+        alpha -= 0.2f;
+
+        Color customColor = new Color(1, 1, 1, alpha);
+        meshRenderer.GetComponent<Renderer>().material.SetColor("_Color", customColor);
+
+        
+
         isBeingKnockback = true;
         gameObjectForward = gameObjectDirection;
         StartCoroutine("Knockback", knockback);
