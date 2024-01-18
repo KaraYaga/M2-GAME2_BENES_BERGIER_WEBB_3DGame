@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Destructable_Flowers Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2405172879166089963, guid: b62683e69cbf30848b1fc1ed05c2f2ab, type: 3}
+      propertyPath: m_TagString
+      value: Destruction
+      objectReference: {fileID: 0}
     - target: {fileID: 3038578796923547729, guid: b62683e69cbf30848b1fc1ed05c2f2ab, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.77357
@@ -60,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2f03bccb5909cb8449e9e977fa41423b, type: 2}
+    - target: {fileID: 6696052329344029234, guid: b62683e69cbf30848b1fc1ed05c2f2ab, type: 3}
+      propertyPath: m_TagString
+      value: Destruction
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -67,6 +75,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2405172879166089963, guid: b62683e69cbf30848b1fc1ed05c2f2ab, type: 3}
       insertIndex: -1
       addedObject: {fileID: 670897439344323993}
+    - targetCorrespondingSourceObject: {fileID: 2405172879166089963, guid: b62683e69cbf30848b1fc1ed05c2f2ab, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2490031442024596621}
   m_SourcePrefab: {fileID: 100100000, guid: b62683e69cbf30848b1fc1ed05c2f2ab, type: 3}
 --- !u!1 &4780393676027494903 stripped
 GameObject:
@@ -96,3 +107,17 @@ CapsuleCollider:
   m_Height: 1.2927078
   m_Direction: 1
   m_Center: {x: 0, y: 0.30329654, z: 0}
+--- !u!114 &2490031442024596621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4780393676027494903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329fd5ac1818d684f863aa39efb1d81f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  life: 1
+  destructionParticlesPrefab: {fileID: 0}

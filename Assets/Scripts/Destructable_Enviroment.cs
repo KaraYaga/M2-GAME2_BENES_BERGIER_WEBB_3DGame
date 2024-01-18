@@ -7,7 +7,7 @@ public class Destructable_Enviroment : MonoBehaviour
     [SerializeField] float life = 1f;
     [SerializeField] GameObject destructionParticlesPrefab;
 
-    public void SetLife(float damage, float knockback)
+    public void SetLife(float damage)
     {
         life -= damage;
         Debug.Log(life);
@@ -26,16 +26,10 @@ public class Destructable_Enviroment : MonoBehaviour
     //Instantiate Particles and Destroy Object
     private IEnumerator DestroyWithParticles()
     {
-        // Destroy the game object
-        Destroy(gameObject);
+        Instantiate(destructionParticlesPrefab, transform.position, transform.rotation);
 
-        // Wait for the next frame
         yield return null;
 
-        // Instantiate particles after destroying the object
-        if (destructionParticlesPrefab != null)
-        {
-            Instantiate(destructionParticlesPrefab, transform.position, transform.rotation);
-        }
+        Destroy(gameObject);
     }
 }

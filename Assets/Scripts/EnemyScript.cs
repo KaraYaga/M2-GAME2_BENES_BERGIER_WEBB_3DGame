@@ -8,11 +8,9 @@ using UnityEngine.Windows;
 
 public class EnemyScript : MonoBehaviour
 {
-    [SerializeField] float life = 5f;
-    //[SerializeField] GameObject Enemy;
+    [SerializeField] protected float life = 5f;
     [SerializeField] protected Animator animator;
     [SerializeField] ParticleSystem particleGhostDeath;
-    //private Animator animator;
 
     [Header("Movement")]
     [SerializeField] private Transform target;
@@ -37,19 +35,6 @@ public class EnemyScript : MonoBehaviour
         animator = GetComponent<Animator>();
         GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
-
-    void Update()
-    {
-        if (life <= 0)
-        {
-            //Die();
-        }
-        if (gameObject == null)
-        {
-            Instantiate(particleGhostDeath);
-        }
-    }
-
 
     private void FixedUpdate()
     {
@@ -116,8 +101,13 @@ public class EnemyScript : MonoBehaviour
         isBeingKnockback = false;
     }
 
-    private void Die()
+    //Death
+    public IEnumerator DestroyWithParticles()
     {
+        Instantiate(particleGhostDeath, transform.position, Quaternion.Euler(-90,0,0));
+
+        yield return null;
+
         Destroy(gameObject);
     }
 

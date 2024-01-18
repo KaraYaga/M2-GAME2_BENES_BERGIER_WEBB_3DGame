@@ -208,6 +208,12 @@ public class CharacterMovement : MonoBehaviour
                 other.gameObject.GetComponent<EnemyScript>().SetLife(1f, enemyKnockback, gameObject);
             }            
         }
+
+        if(other.gameObject.tag == "Destruction")
+        {
+            Debug.Log("YOOO");
+            other.gameObject.GetComponent<Destructable_Enviroment>().SetLife(1f);
+        }
     }
 
     private void Die()
