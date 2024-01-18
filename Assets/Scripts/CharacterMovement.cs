@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine.UI;
 
 public class CharacterMovement : MonoBehaviour
 {
+
+    [Header("Health")]
+    [SerializeField] private Slider healthSlider;
+    [SerializeField] private float health = 15, maxHealth = 15;
+
+
     [Header("Attributes")]
     [SerializeField] GameObject playerAvatar;
-    [SerializeField] private float enemyKnockback = 15f, health = 15;
+    [SerializeField] private float enemyKnockback = 15f;
     [SerializeField] ParticleSystem particleHit, particleCharacterDeath;
     private Rigidbody rb;
     private Animator animator;
@@ -42,6 +48,9 @@ public class CharacterMovement : MonoBehaviour
         animator = playerAvatar.GetComponent<Animator>();
         oldColor = meshRenderer.GetComponent<Renderer>().material.color;
         startVelocity = rb.velocity;
+
+        health = maxHealth;
+        healthSlider.value = health;
     }
 
     void Update()
@@ -136,6 +145,7 @@ public class CharacterMovement : MonoBehaviour
         if (!isInvincible)
         {
             health -= damage;
+            healthSlider.value = health;
             Debug.Log(health);
             isInvincible = true;
             StartCoroutine("Invincibility", timeOfInvincibility);

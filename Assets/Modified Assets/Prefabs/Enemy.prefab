@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 5
   animator: {fileID: 5561289738143157047}
-  particleGhostDeath: {fileID: 5515065002404772068, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+  particleGhostDeath: {fileID: 7226888052703040407, guid: 7ec363c8df426644ea85f8d6d570561c, type: 3}
   target: {fileID: 3899219372879546022}
   speedToTurn: 2
   radiusFromPoint: 1
