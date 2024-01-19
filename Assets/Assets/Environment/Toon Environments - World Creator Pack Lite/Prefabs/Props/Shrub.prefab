@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 78663587995101969}
   - component: {fileID: 6289974163227583985}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Shrub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 6779399013801424189}
   - component: {fileID: 9044548179610056566}
   - component: {fileID: 1130605126724950548}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Shrub1_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 6874237797193151059}
   - component: {fileID: 2343003622546072744}
   - component: {fileID: 3356299203481016021}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Shrub1_Details
   m_TagString: Untagged
   m_Icon: {fileID: 0}

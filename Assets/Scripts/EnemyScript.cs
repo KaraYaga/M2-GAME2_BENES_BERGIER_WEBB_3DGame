@@ -97,7 +97,7 @@ public class EnemyScript : MonoBehaviour
         life -= damage;
         Debug.Log(life);
 
-        alpha -= 0.2f;
+        alpha -= 0.3f;
 
         Color customColor = new Color(1, 1, 1, alpha);
         meshRenderer.GetComponent<Renderer>().material.SetColor("_Color", customColor);

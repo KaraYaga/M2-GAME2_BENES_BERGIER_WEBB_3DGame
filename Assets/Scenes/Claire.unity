@@ -475,20 +475,11 @@ PrefabInstance:
       propertyPath: mainCharacter
       value: 
       objectReference: {fileID: 1424336406}
-    - target: {fileID: 5965605892382175778, guid: 47eccfdaaa8490246bb90d54bab6ccbd, type: 3}
-      propertyPath: particleHit
-      value: 
-      objectReference: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47eccfdaaa8490246bb90d54bab6ccbd, type: 3}
---- !u!1 &575654509 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5467247101319972108, guid: c22370071ee1829418106da19f4485f1, type: 3}
-  m_PrefabInstance: {fileID: 3805548250672717413}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &894637946
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,17 +1502,9 @@ PrefabInstance:
       value: Character
       objectReference: {fileID: 0}
     - target: {fileID: 4132234950028255148, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
-      propertyPath: particleHit
-      value: 
-      objectReference: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
-    - target: {fileID: 4132234950028255148, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
       propertyPath: healthSlider
       value: 
       objectReference: {fileID: 2072288007}
-    - target: {fileID: 4132234950028255148, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
-      propertyPath: particleCharacterDeath
-      value: 
-      objectReference: {fileID: 5515065002404772068, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
     - target: {fileID: 5751996636989993601, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
       propertyPath: enemy
       value: 
@@ -1544,21 +1527,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2654784299456955862, guid: c22370071ee1829418106da19f4485f1, type: 3}
-      propertyPath: particleHit
-      value: 
-      objectReference: {fileID: 8771972552311404798, guid: bbf9e36a48d6c5648a13889afab076fd, type: 3}
-    - target: {fileID: 2654784299456955862, guid: c22370071ee1829418106da19f4485f1, type: 3}
-      propertyPath: meshRenderer
-      value: 
-      objectReference: {fileID: 575654509}
-    - target: {fileID: 2654784299456955862, guid: c22370071ee1829418106da19f4485f1, type: 3}
       propertyPath: mainCharacter
       value: 
       objectReference: {fileID: 1424336406}
-    - target: {fileID: 2654784299456955862, guid: c22370071ee1829418106da19f4485f1, type: 3}
-      propertyPath: particleGhostDeath
-      value: 
-      objectReference: {fileID: 7226888052703040407, guid: 7ec363c8df426644ea85f8d6d570561c, type: 3}
     - target: {fileID: 5068976898247649837, guid: c22370071ee1829418106da19f4485f1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.12
