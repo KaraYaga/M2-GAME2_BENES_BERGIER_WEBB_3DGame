@@ -19,8 +19,14 @@ public class Buttons : MonoBehaviour
 
     public void StartGame()
     {
-        // Load scene Game
+        // Load scene Intro
         SceneManager.LoadScene(1);
+    }
+
+    public void ContinueGame()
+    {
+        // Load scene Game
+        SceneManager.LoadScene(2);
     }
 
     public void QuitGame()
