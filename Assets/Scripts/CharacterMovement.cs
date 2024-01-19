@@ -82,7 +82,7 @@ public class CharacterMovement : MonoBehaviour
 
         if(Duck_Collection.instance.GetDuckCount() >= 10)
         {
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene(4);
         }
     }
 
@@ -237,7 +237,7 @@ public class CharacterMovement : MonoBehaviour
         {
             if(Duck_Collection.instance.GetDuckCount() >= 5)
             {
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(3);
             }
             else
             {
@@ -254,6 +254,11 @@ public class CharacterMovement : MonoBehaviour
 
         yield return null;
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(2);
+
+        SceneManager.LoadScene(5);
+
     }
 }
