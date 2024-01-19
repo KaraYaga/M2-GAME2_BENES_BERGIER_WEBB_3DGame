@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 409972}
   - component: {fileID: 3308936}
   - component: {fileID: 2359556}
-  - component: {fileID: -7103694381160983361}
   - component: {fileID: 8924847373829466675}
   - component: {fileID: 2001422080271405552}
   - component: {fileID: -288081949974760141}
@@ -87,29 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-7103694381160983361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 313ddf12e0b9f3c42b8e946df9c027af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDucks: 15
-  currentDucks: 0
-  collectionRange: 1
-  duckCountText: {fileID: 0}
-  throwForce: 10
-  upForce: 0
-  enemyRange: 0
-  throwLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  mainCharacter: {fileID: 0}
 --- !u!54 &8924847373829466675
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -135,7 +111,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &2001422080271405552
 CapsuleCollider:

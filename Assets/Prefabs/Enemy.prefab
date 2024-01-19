@@ -205,7 +205,7 @@ MonoBehaviour:
   knockback: 6
   timeOfKnockback: 0.3
   speedToAttack: 3
-  mainCharacter: {fileID: 0}
+  mainCharacter: {fileID: 3502170476156479086, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
   meshRenderer: {fileID: 5467247101319972108}
   alpha: 1
   targetMask:

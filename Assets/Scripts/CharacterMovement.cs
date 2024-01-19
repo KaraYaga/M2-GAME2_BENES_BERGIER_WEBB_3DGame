@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -78,10 +79,10 @@ public class CharacterMovement : MonoBehaviour
         {
             throwDuck = true;
         }
-        if (isBeingKnockback)
+
+        if(Duck_Collection.instance.GetDuckCount() >= 10)
         {
-            knockBackAngle = gameObjectForward.transform.forward;
-            transform.position += new Vector3(knockBackAngle.x, gameObject.transform.forward.y, knockBackAngle.z) * knockback * Time.deltaTime;
+            SceneManager.LoadScene(3);
         }
     }
 
@@ -101,6 +102,12 @@ public class CharacterMovement : MonoBehaviour
         else if(!isDash)
         {
             rb.velocity = startVelocity;
+        }
+
+        if (isBeingKnockback)
+        {
+            knockBackAngle = gameObjectForward.transform.forward;
+            transform.position += new Vector3(knockBackAngle.x, gameObject.transform.forward.y, knockBackAngle.z) * knockback * Time.deltaTime;
         }
     }
 
@@ -223,8 +230,20 @@ public class CharacterMovement : MonoBehaviour
 
         if(other.gameObject.tag == "Destruction")
         {
-            Debug.Log("YOOO");
             other.gameObject.GetComponent<Destructable_Enviroment>().SetLife(1f);
+        }
+
+        if(other.gameObject.tag == "Boat")
+        {
+            if(Duck_Collection.instance.GetDuckCount() >= 5)
+            {
+                SceneManager.LoadScene(2);
+            }
+            else
+            {
+                Debug.Log("You don't have enough duck");
+            }
+            
         }
     }
 

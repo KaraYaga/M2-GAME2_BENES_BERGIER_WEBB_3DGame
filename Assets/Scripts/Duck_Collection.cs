@@ -102,6 +102,8 @@ public class Duck_Collection : MonoBehaviour
                 duckPrefab.GetComponent<Rigidbody>().AddForce(throwDirection, ForceMode.VelocityChange);
                 currentDucks--;
 
+                collectedDucks.Remove(duckPrefab);
+
                 UpdateDuckCountText();
             }
             else
@@ -122,5 +124,10 @@ public class Duck_Collection : MonoBehaviour
         {
             duckCountText.text = currentDucks.ToString();
         }
+    }
+
+    public float GetDuckCount()
+    {
+        return currentDucks;
     }
 }

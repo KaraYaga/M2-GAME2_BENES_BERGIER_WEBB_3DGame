@@ -183,8 +183,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 0}
-  health: 15
-  maxHealth: 15
+  health: 10
+  maxHealth: 10
   playerAvatar: {fileID: 3971298567138250804}
   enemyKnockback: 15
   particleHit: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
@@ -212,7 +212,7 @@ MonoBehaviour:
   maxDucks: 15
   currentDucks: 0
   collectionRange: 1
-  duckCountText: {fileID: 0}
+  duckCountText: {fileID: 3675703878134536717, guid: fb9c72d3ed9414d4e9c748e5e1aeccfa, type: 3}
   throwForce: 5
   upForce: 4
   enemyRange: 5
