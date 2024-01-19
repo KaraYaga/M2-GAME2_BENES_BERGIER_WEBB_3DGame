@@ -20,7 +20,7 @@ public class Buttons : MonoBehaviour
     public void StartGame()
     {
         // Load scene Game
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene(1);
     }
 
     public void QuitGame()
@@ -32,6 +32,6 @@ public class Buttons : MonoBehaviour
     public void Menu()
     {
         //Load scene MainMenu
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(0);
     }
 }
