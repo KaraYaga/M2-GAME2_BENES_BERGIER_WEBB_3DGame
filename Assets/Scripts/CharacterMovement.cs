@@ -1,13 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine.UI;
 
 public class CharacterMovement : MonoBehaviour
 {
+
+    [Header("Health")]
+    [SerializeField] private Slider healthSlider;
+    [SerializeField] private float health = 15, maxHealth = 15;
+
+
     [Header("Attributes")]
     [SerializeField] GameObject playerAvatar;
-    [SerializeField] private float enemyKnockback = 15f, health = 15;
+    [SerializeField] private float enemyKnockback = 15f;
+    [SerializeField] ParticleSystem particleHit, particleCharacterDeath;
     private Rigidbody rb;
     private Animator animator;
     private bool throwDuck;
@@ -34,7 +41,6 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] float timeOfInvincibility;
     private bool isInvincible;
     private Color oldColor;
-    //private Color newColor;
 
     void Start()
     {
@@ -42,6 +48,9 @@ public class CharacterMovement : MonoBehaviour
         animator = playerAvatar.GetComponent<Animator>();
         oldColor = meshRenderer.GetComponent<Renderer>().material.color;
         startVelocity = rb.velocity;
+
+        health = maxHealth;
+        healthSlider.value = health;
     }
 
     void Update()
@@ -52,7 +61,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (health <= 0)
         {
-            Die();
+            StartCoroutine(DestroyWithParticles());
         }
 
         if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.E)) && !isDash) //Dash
@@ -136,6 +145,7 @@ public class CharacterMovement : MonoBehaviour
         if (!isInvincible)
         {
             health -= damage;
+            healthSlider.value = health;
             Debug.Log(health);
             isInvincible = true;
             StartCoroutine("Invincibility", timeOfInvincibility);
@@ -205,13 +215,26 @@ public class CharacterMovement : MonoBehaviour
         {
             if (curentAnimName == "attack")
             {
+                Instantiate(particleHit, other.gameObject.transform.position, Quaternion.Euler(-90, 0, 0));
+
                 other.gameObject.GetComponent<EnemyScript>().SetLife(1f, enemyKnockback, gameObject);
             }            
         }
+
+        if(other.gameObject.tag == "Destruction")
+        {
+            Debug.Log("YOOO");
+            other.gameObject.GetComponent<Destructable_Enviroment>().SetLife(1f);
+        }
     }
 
-    private void Die()
+    //Death
+    public IEnumerator DestroyWithParticles()
     {
-        //
+        Instantiate(particleCharacterDeath, transform.position, Quaternion.Euler(-90, 0, 0));
+
+        yield return null;
+
+        Destroy(gameObject);
     }
 }

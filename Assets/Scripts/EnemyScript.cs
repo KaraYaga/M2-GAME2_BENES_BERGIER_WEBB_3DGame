@@ -8,11 +8,9 @@ using UnityEngine.Windows;
 
 public class EnemyScript : MonoBehaviour
 {
-    [SerializeField] float life = 5f;
-    //[SerializeField] GameObject Enemy;
+    [SerializeField] protected float life = 5f;
     [SerializeField] protected Animator animator;
     [SerializeField] ParticleSystem particleGhostDeath;
-    //private Animator animator;
 
     [Header("Movement")]
     [SerializeField] private Transform target;
@@ -31,25 +29,18 @@ public class EnemyScript : MonoBehaviour
     protected bool isAttacking;
     public GameObject mainCharacter;
 
+    [Header("Damage")]
+    [SerializeField] private GameObject meshRenderer;
+    [SerializeField] private float alpha = 1;
+    private Material material;
+
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        material = meshRenderer.GetComponent<Renderer>().material;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
-
-    void Update()
-    {
-        if (life <= 0)
-        {
-            //Die();
-        }
-        if (gameObject == null)
-        {
-            Instantiate(particleGhostDeath);
-        }
-    }
-
 
     private void FixedUpdate()
     {
@@ -105,6 +96,14 @@ public class EnemyScript : MonoBehaviour
     {
         life -= damage;
         Debug.Log(life);
+
+        alpha -= 0.2f;
+
+        Color customColor = new Color(1, 1, 1, alpha);
+        meshRenderer.GetComponent<Renderer>().material.SetColor("_Color", customColor);
+
+        
+
         isBeingKnockback = true;
         gameObjectForward = gameObjectDirection;
         StartCoroutine("Knockback", knockback);
@@ -116,8 +115,13 @@ public class EnemyScript : MonoBehaviour
         isBeingKnockback = false;
     }
 
-    private void Die()
+    //Death
+    public IEnumerator DestroyWithParticles()
     {
+        Instantiate(particleGhostDeath, transform.position, Quaternion.Euler(-90,0,0));
+
+        yield return null;
+
         Destroy(gameObject);
     }
 

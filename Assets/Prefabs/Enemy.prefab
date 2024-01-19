@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   life: 5
   animator: {fileID: 5561289738143157047}
-  particleGhostDeath: {fileID: 0}
+  particleGhostDeath: {fileID: 7226888052703040407, guid: 7ec363c8df426644ea85f8d6d570561c, type: 3}
   target: {fileID: 3899219372879546022}
   speedToTurn: 2
   radiusFromPoint: 1
@@ -108,7 +108,9 @@ MonoBehaviour:
   knockback: 6
   timeOfKnockback: 0.3
   speedToAttack: 3
-  mainCharacter: {fileID: 0}
+  mainCharacter: {fileID: 3502170476156479086, guid: 539093a491b86cc4987f3c30ee85a18c, type: 3}
+  meshRenderer: {fileID: 5467247101319972108}
+  alpha: 1
   targetMask:
     serializedVersion: 2
     m_Bits: 8192
@@ -487,6 +489,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ee08d04ad5df46fbb2e97260b63420b, type: 3}
+--- !u!1 &5467247101319972108 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1893022538616854154, guid: 8ee08d04ad5df46fbb2e97260b63420b, type: 3}
+  m_PrefabInstance: {fileID: 5880238477322670982}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &5561289738143157047 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2069234913439815857, guid: 8ee08d04ad5df46fbb2e97260b63420b, type: 3}

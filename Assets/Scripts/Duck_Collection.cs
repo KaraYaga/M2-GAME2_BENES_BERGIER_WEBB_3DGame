@@ -120,7 +120,7 @@ public class Duck_Collection : MonoBehaviour
     {
         if (duckCountText != null)
         {
-            duckCountText.text = "Ducks: " + currentDucks.ToString();
+            duckCountText.text = currentDucks.ToString();
         }
     }
 }

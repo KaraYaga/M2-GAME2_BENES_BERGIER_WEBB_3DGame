@@ -23,6 +23,11 @@ public class EnemyAttack : EnemyScript
         {
             isAttacking = false;
         }
+
+        if (life <= 0)
+        {
+            StartCoroutine(DestroyWithParticles());
+        }
     }
 
     private void Start()
