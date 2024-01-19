@@ -19,7 +19,13 @@ public class Buttons : MonoBehaviour
 
     public void StartGame()
     {
-        // Load scene Game
+        // Load Intro before game
+        SceneManager.LoadScene("Intro");
+    }
+
+    public void IntroSkip()
+    {
+        // Finish Intro, Load Game
         SceneManager.LoadScene("Game");
     }
 
