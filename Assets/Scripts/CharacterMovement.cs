@@ -55,7 +55,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (sceneName == "Sibelle 2")
         {
-            health = ForNextLevelScript.Instance.life;
+            //health = ForNextLevelScript.Instance.life;
         }
         else
         {
@@ -264,6 +264,11 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
+    void OnDisable()
+    {
+        Invoke("Death", 3f);
+    }
+
     //Death
     public IEnumerator DestroyWithParticles()
     {
@@ -272,11 +277,12 @@ public class CharacterMovement : MonoBehaviour
         yield return null;
 
         gameObject.SetActive(false);
+    }
 
-        yield return new WaitForSeconds(2);
+    private void Death()
+    {
 
         SceneManager.LoadScene(5);
-
     }
 
     public float GetHealth()
