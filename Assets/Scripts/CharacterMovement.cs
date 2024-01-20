@@ -264,11 +264,6 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    void OnDisable()
-    {
-        Invoke("Death", 3f);
-    }
-
     //Death
     public IEnumerator DestroyWithParticles()
     {
@@ -277,6 +272,11 @@ public class CharacterMovement : MonoBehaviour
         yield return null;
 
         gameObject.SetActive(false);
+    }
+
+    void OnDisable()
+    {
+        Invoke("Death", 3f);
     }
 
     private void Death()
