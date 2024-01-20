@@ -209,7 +209,7 @@ MonoBehaviour:
   knockback: 11
   timeOfKnockback: 0.1
   meshRenderer: {fileID: 7146921095036166713}
-  timeOfInvincibility: 0.2
+  timeOfInvincibility: 0.15
 --- !u!114 &5751996636989993601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +232,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   mainCharacter: {fileID: 3502170476156479086}
+  FKey: {fileID: 0}
+  fKeyXOffset: 32
+  fKeyYOffset: 15
   alreadyCollectedDucks:
   - {fileID: 0}
   - {fileID: 0}

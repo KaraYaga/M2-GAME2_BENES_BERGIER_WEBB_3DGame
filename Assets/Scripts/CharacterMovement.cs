@@ -55,7 +55,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (sceneName == "Sibelle 2")
         {
-            //health = ForNextLevelScript.Instance.life;
+            health = ForNextLevelScript.Instance.life;
         }
         else
         {
@@ -202,6 +202,7 @@ public class CharacterMovement : MonoBehaviour
         meshRenderer.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
         yield return new WaitForSeconds(invincible);
         meshRenderer.GetComponent<Renderer>().material.color = oldColor;
+        yield return new WaitForSeconds(invincible);
         yield return new WaitForSeconds(invincible);
         yield return new WaitForSeconds(invincible);
 
