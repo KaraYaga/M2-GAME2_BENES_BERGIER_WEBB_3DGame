@@ -26,6 +26,10 @@ public class Duck_Collection : MonoBehaviour
     [SerializeField] private float fKeyXOffset, fKeyYOffset;
     [SerializeField] private List<GameObject> alreadyCollectedDucks = new List<GameObject>();
 
+    [Header("Tuto")]
+    [SerializeField] private GameObject PopUp;
+    private Animator popAnimation;
+    private bool tuto;
 
     // Start with NO DUCKS
     void Start()
@@ -51,6 +55,9 @@ public class Duck_Collection : MonoBehaviour
         }
 
         FKey.SetActive(false);
+        PopUp.SetActive(false);
+
+        popAnimation = PopUp.GetComponent<Animator>();
 
         if (duckCountText == null)
         {
@@ -65,6 +72,13 @@ public class Duck_Collection : MonoBehaviour
     private void Update()
     {
         CheckDuckRange();
+
+        if(collectedDucks.Count == 1 && !tuto)
+        {
+            tuto = true;
+            PopUp.SetActive(true);
+            tuto = false;
+        }
     }
 
     // Detecting when ducks are in range
@@ -156,6 +170,8 @@ public class Duck_Collection : MonoBehaviour
                 collectedDucks.Remove(duckPrefab);
 
                 UpdateDuckCountText();
+
+                popAnimation.SetTrigger("EndOfPopUp");
             }
             else
             {
