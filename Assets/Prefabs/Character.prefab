@@ -117,6 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2874053513211136694}
   - component: {fileID: 1943357301638483104}
+  - component: {fileID: 4506374524991274789}
   - component: {fileID: 4132234950028255148}
   - component: {fileID: 5751996636989993601}
   m_Layer: 13
@@ -165,11 +166,23 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!75 &4506374524991274789
+ConstantForce:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3502170476156479086}
+  m_Enabled: 1
+  m_Force: {x: 0, y: -50, z: 0}
+  m_RelativeForce: {x: 0, y: 0, z: 0}
+  m_Torque: {x: 0, y: 0, z: 0}
+  m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!114 &4132234950028255148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxDucks: 15
   collectionRange: 1
-  duckCountText: {fileID: 3675703878134536717, guid: fb9c72d3ed9414d4e9c748e5e1aeccfa, type: 3}
+  duckCountText: {fileID: 0}
   throwForce: 5
   upForce: 4
   enemyRange: 5

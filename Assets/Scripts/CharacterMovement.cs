@@ -55,7 +55,7 @@ public class CharacterMovement : MonoBehaviour
 
         if (sceneName == "Sibelle 2")
         {
-            health = ForNextLevelScript.Instance.life;
+            //health = ForNextLevelScript.Instance.life;
         }
         else
         {
