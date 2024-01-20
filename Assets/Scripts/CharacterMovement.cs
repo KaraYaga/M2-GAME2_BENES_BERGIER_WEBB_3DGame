@@ -57,7 +57,7 @@ public class CharacterMovement : MonoBehaviour
         {
             health = ForNextLevelScript.Instance.life;
         }
-        else if(sceneName == "Sibelle 1")
+        else
         {
             health = maxHealth;
         }

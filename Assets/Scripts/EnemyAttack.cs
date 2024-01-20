@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyAttack : EnemyScript
 {
@@ -15,6 +16,18 @@ public class EnemyAttack : EnemyScript
 
     private void Update()
     {
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+
+        if (sceneName == "Sibelle 2")
+        {
+            radiusFromPlayer = 5;
+        }
+        else
+        {
+            radiusFromPlayer = 3;
+        }
+
         if (canSeePlayer)
         {
             isAttacking = true;
