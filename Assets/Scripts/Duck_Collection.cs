@@ -2,15 +2,17 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class Duck_Collection : MonoBehaviour
 {
     public static Duck_Collection instance;
     [Header("Duck Collection")]
     [SerializeField] private int maxDucks = 15;
-    [SerializeField] private int currentDucks;
+    [SerializeField] private static int currentDucks;
     [SerializeField] private float collectionRange = 1;
     [SerializeField] private TextMeshProUGUI duckCountText;
+    private List<GameObject> collectedDucks = new List<GameObject>();
 
     [Header("Duck Throw")]
     [SerializeField] private float throwForce;
@@ -18,15 +20,31 @@ public class Duck_Collection : MonoBehaviour
     [SerializeField] private LayerMask throwLayer; //Be set in Unity Editor
     [SerializeField] private GameObject mainCharacter;
 
+    [Header("Second Level Ducks")]
+    [SerializeField] private List<GameObject> alreadyCollectedDucks = new List<GameObject>();
 
-    private List<GameObject> collectedDucks = new List<GameObject>();
-
-// Start with NO DUCKS
+    // Start with NO DUCKS
     void Start()
     {
         instance = this;
 
-        currentDucks = 0;
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+
+        if (sceneName == "Sibelle 2")
+        {
+            currentDucks = 5;
+
+            for(int i = 0; i < currentDucks; i++)
+            {
+                collectedDucks.Add(alreadyCollectedDucks[i]);
+            }
+            
+        }
+        else
+        {
+            currentDucks = 0;
+        }
 
         if (duckCountText == null)
         {

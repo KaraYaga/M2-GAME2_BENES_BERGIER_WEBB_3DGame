@@ -136,7 +136,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.38911, y: -0.73, z: 0.015701}
-  m_LocalScale: {x: 1.4685, y: 1.4685, z: 1.4685}
+  m_LocalScale: {x: 1.0920941, y: 1.0920941, z: 1.0920941}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 637130291838805888}
@@ -210,7 +210,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDucks: 15
-  currentDucks: 0
   collectionRange: 1
   duckCountText: {fileID: 3675703878134536717, guid: fb9c72d3ed9414d4e9c748e5e1aeccfa, type: 3}
   throwForce: 5
@@ -220,6 +219,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   mainCharacter: {fileID: 3502170476156479086}
+  alreadyCollectedDucks:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &4442138565445020497
 PrefabInstance:
   m_ObjectHideFlags: 0

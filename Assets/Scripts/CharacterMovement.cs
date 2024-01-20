@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
+    public static CharacterMovement instance;
 
     [Header("Health")]
     [SerializeField] private Slider healthSlider;
     [SerializeField] private float health = 15, maxHealth = 15;
-
 
     [Header("Attributes")]
     [SerializeField] GameObject playerAvatar;
@@ -43,14 +43,30 @@ public class CharacterMovement : MonoBehaviour
     private bool isInvincible;
     private Color oldColor;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+
+        if (sceneName == "Sibelle 2")
+        {
+            health = ForNextLevelScript.Instance.life;
+        }
+        else if(sceneName == "Sibelle 1")
+        {
+            health = maxHealth;
+        }
+
         rb = GetComponent<Rigidbody>();
         animator = playerAvatar.GetComponent<Animator>();
         oldColor = meshRenderer.GetComponent<Renderer>().material.color;
         startVelocity = rb.velocity;
 
-        health = maxHealth;
         healthSlider.value = health;
     }
 
@@ -80,7 +96,7 @@ public class CharacterMovement : MonoBehaviour
             throwDuck = true;
         }
 
-        if(Duck_Collection.instance.GetDuckCount() >= 10)
+        if(Duck_Collection.instance.GetDuckCount() >= 15)
         {
             SceneManager.LoadScene(4);
         }
@@ -260,5 +276,10 @@ public class CharacterMovement : MonoBehaviour
 
         SceneManager.LoadScene(5);
 
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 }
