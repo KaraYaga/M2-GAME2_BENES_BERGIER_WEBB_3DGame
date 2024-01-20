@@ -171,10 +171,25 @@ public class Duck_Collection : MonoBehaviour
 // Update Duck Count
     private void UpdateDuckCountText()
     {
-        if (duckCountText != null)
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+
+        if (sceneName == "Sibelle 2")
         {
-            duckCountText.text = currentDucks.ToString();
+            if (duckCountText != null)
+            {
+                duckCountText.text = currentDucks.ToString() + " / 15";
+            }
         }
+        else
+        {
+            if (duckCountText != null)
+            {
+                duckCountText.text = currentDucks.ToString() + " / 5";
+            }
+        }
+
+
     }
 
     public float GetDuckCount()
