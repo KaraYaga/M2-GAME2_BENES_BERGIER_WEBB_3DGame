@@ -20,8 +20,8 @@ This project was created in collaboration with a **programmer**, a **game design
 
 This project was created as a **collaborative effort**, with contributions from:  
 
-- 🕹️ **[CLAIRE BENES]** – Gameplay programming & Build 
-- 🎮 **[KARRIS WEBB]** – Game Design & UI Programming 
+- 🎮 **[CLAIRE BENES]** – Gameplay programming & Build 
+- 🕹️ **[KARRIS WEBB]** – Game Design & UI Programming 
 - 🏗️ **[SIBELLE BERGIER]** – Level Design & Dressing
 
 
