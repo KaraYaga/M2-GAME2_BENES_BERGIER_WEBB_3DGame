@@ -5,6 +5,7 @@ A **3D action-adventure game** developed as a **team project**, featuring **expl
 ![DuckDuckGhost](https://github.com/user-attachments/assets/e27954f2-e4e1-4243-ab80-35884107bf34)
 
 🎮 **Watch the walkthrough video**:  
+
 [![Walkthrough](https://img.youtube.com/vi/W1ffo7ylHYQ/0.jpg)](https://youtu.be/W1ffo7ylHYQ)  
 
 ## 🛠️ Features  
