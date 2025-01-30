@@ -1,6 +1,7 @@
-# M2-GAME2 – 3D Action-Adventure Game  
+# DUCK DUCK GHOST
 
-A **3D action-adventure game** developed as a **team project**, featuring **exploration, combat, and puzzle mechanics**. This project was created in collaboration with a **game designer** and a **level designer**, blending gameplay mechanics with immersive level design.  
+A **3D action-adventure game** developed as a **team project**, featuring **exploration, combat, and puzzle mechanics**. 
+This project was created in collaboration with a **programmer**, a **game designer** and a **level designer**, blending gameplay mechanics with immersive level design.  
 
 ![DuckDuckGhost](https://github.com/user-attachments/assets/e27954f2-e4e1-4243-ab80-35884107bf34)
 
