@@ -1,4 +1,4 @@
-# DUCK DUCK GHOST
+# Duck Duck Ghost
 
 A **3D action-adventure game** developed as a **team project**, featuring **exploration, combat, and puzzle mechanics**. 
 This project was created in collaboration with a **programmer**, a **game designer** and a **level designer**, blending gameplay mechanics with immersive level design.  
